@@ -69,8 +69,10 @@ app.layout = html.Div([
                                 width={"size": 2, "order": 3}
                             ),
                             dbc.Col(
-                                dbc.Button(
-                                    "Change Time", color = "primary"
+                                dbc.DropdownMenu(
+                                    [dbc.DropdownMenuItem("Student"),dbc.DropdownMenuItem("Faculty"),
+                                     dbc.DropdownMenuItem("Staff"),dbc.DropdownMenuItem("Guest")],
+                                     label="Change View"
                                 ),
                                 width={"size": 2, "order": 4}
                             ),
