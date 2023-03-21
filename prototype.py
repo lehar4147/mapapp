@@ -6,6 +6,7 @@ import plotly.graph_objects as go
 from dash import Dash
 from dash import dcc
 from dash import html
+from dash import Input, Output
 #from dash.dependencies import Input, Output
 
 import dash_bootstrap_components as dbc
@@ -63,18 +64,44 @@ app.layout = html.Div([
                                 width={"size": 3, "order": 2}
                             ),
                             dbc.Col(
-                                dbc.Button(
-                                    "Change View", color = "primary"
-                                ),
-                                width={"size": 2, "order": 3}
-                            ),
-                            dbc.Col(
                                 dbc.DropdownMenu(
                                     [dbc.DropdownMenuItem("Student"),dbc.DropdownMenuItem("Faculty"),
                                      dbc.DropdownMenuItem("Staff"),dbc.DropdownMenuItem("Guest")],
                                      label="Change View"
                                 ),
-                                width={"size": 2, "order": 4}
+                                width={"size": 2, "order": 3}
+                            ),
+                            dbc.Col(
+                                dbc.DropdownMenu(
+                                    [
+                                      dbc.DropdownMenu(
+                                        [
+                                            dbc.DropdownMenuItem("Monday"),
+                                            dbc.DropdownMenuItem("Tuesday"),
+                                            dbc.DropdownMenuItem("Wednesday"),
+                                            dbc.DropdownMenuItem("Thursday"),
+                                            dbc.DropdownMenuItem("Friday"),
+                                            dbc.DropdownMenuItem("Saturday"),
+                                            dbc.DropdownMenuItem("Sunday"),
+                                        ],
+                                        label = "Day"
+                                      ),
+                                      dbc.Input(id="hour_input", placeholder="Hour", type="number",min=0,max=23),
+                                      dbc.Input(id="minute_input", placeholder="Minute", type="number", min=0, max=59),
+                                      dbc.DropdownMenu(
+                                        [
+                                            dbc.DropdownMenuItem("AM", id = "trigger_am"),
+                                            dbc.DropdownMenuItem("PM", id = "trigger_pm")
+                                        ],
+                                        label = "AM/PM",
+                                        direction = "up"
+                                      ),
+                                      html.P('Current time: ')
+                                      # Need to make function to update time while input is given
+                                    ],
+                                    label = "Change Time"
+                                ),
+                                width={"size": 2, "order": 4},
                             ),
                             dbc.Col(
                                 dbc.Button(
@@ -97,6 +124,16 @@ app.layout = html.Div([
         ]
     )
 ])
+
+# @app.callback(
+#     Output("current_AM_PM","children"), [Input("trigger_am", "PM")]
+# )
+
+# def update_am_pm(clicked):
+#     if (clicked == 'PM'){
+#         return f'Output: {PM}'
+#     }
+#     return f'Output: {AM}'
 
 if __name__ == '__main__':
     app.run_server(debug=True)
