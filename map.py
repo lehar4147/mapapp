@@ -5,14 +5,7 @@ import dash_bootstrap_components as dbc
 from datetime import datetime
 import folium
 
-RPI_coor = [42.73, -73.6775]
-my_map = folium.Map(location=RPI_coor, zoom_start=24)
-my_map.save('my_map.html')
-
-import geocoder
-g = geocoder.ip('me')
-
-app = Dash(__name__,external_stylesheets=[dbc.themes.BOOTSTRAP])
+# Functions
 
 #RPI_MAP_APP_LOGO = "....png"
 def get_time():
@@ -30,9 +23,19 @@ def table():
     table = dbc.Table(table_header + table_body, bordered=True)
     return table
 
-app.layout = html.Div([
-    html.Div(    
-        dbc.Navbar(
+# Variables
+
+RPI_coor = [42.73, -73.6775]
+my_map = folium.Map(location=RPI_coor, zoom_start=24)
+my_map.save('my_map.html')
+
+# App Initialization
+
+app = Dash(__name__,external_stylesheets=[dbc.themes.BOOTSTRAP])
+
+# Layout
+
+navbar = dbc.Navbar(
             dbc.Container(
                 [
                     dbc.Row(
@@ -100,6 +103,10 @@ app.layout = html.Div([
             ),
             color = "primary"
         )
+
+app.layout = html.Div([
+    html.Div(    
+        navbar
     ),
     html.Div(
         className = "map-view",
@@ -108,6 +115,8 @@ app.layout = html.Div([
         ]
     )
 ])
+
+# Callbacks
 
 # @app.callback(
 #     Output("current_AM_PM","children"), [Input("trigger_am", "PM")]
@@ -118,6 +127,8 @@ app.layout = html.Div([
 #         return f'Output: {PM}'
 #     }
 #     return f'Output: {AM}'
+
+# Server
 
 if __name__ == '__main__':
     app.run_server(debug=True)
