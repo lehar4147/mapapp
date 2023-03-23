@@ -1,9 +1,7 @@
 import plotly.graph_objects as go
 from dash import Dash
-from dash import dcc
 from dash import html
 import folium
-import pandas as pd
 
 RPI_coor = [42.73, -73.6775]
 my_map = folium.Map(location=RPI_coor, zoom_start=24)
