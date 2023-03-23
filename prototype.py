@@ -1,18 +1,9 @@
-#import pandas as pd
-#import plotly.express as px
 import plotly.graph_objects as go
-
-#import dash
 from dash import Dash
 from dash import dcc
 from dash import html
-from dash import Input, Output
-#from dash.dependencies import Input, Output
-
 import dash_bootstrap_components as dbc
-
 from datetime import datetime
-
 import geocoder
 g = geocoder.ip('me')
 
@@ -32,7 +23,6 @@ fig.update_layout(height=300, margin={"r":0,"t":0,"l":0,"b":0})
 def get_time():
     current_time = datetime.now().strftime("%H:%M")
     return current_time
-    
 
 def table():
     table_header = [
@@ -44,7 +34,6 @@ def table():
 
     table = dbc.Table(table_header + table_body, bordered=True)
     return table
-
 
 app.layout = html.Div([
     html.Div(    
