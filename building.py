@@ -1,9 +1,11 @@
 class Building:
-    def __init__(self, name, code, building_type, address, image, description, building_hours, shops):
+    def __init__(self, name, code, building_type, address, longitude, latitude, image, description, building_hours, shops):
         self.name = name
         self.code = code
         self.building_type = building_type
         self.address = address
+        self.longitude = longitude
+        self.latitude = latitude
         self.image = image
         self.description = description
         self.building_hours = building_hours
