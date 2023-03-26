@@ -44,6 +44,14 @@ def new_custom_time(date,hour,minute):
             return f'{date}, {hour}:0{minute}'
         else:
             return f'{date}, {hour}:{minute}'
+    else:
+        if (hour is None) and (minute is not None):
+            return f'{date}, 00:{minute}'
+        elif (hour is not None) and (minute is None):
+            return f'{date}, {hour}:00'
+        else:
+            return f'{date}, 00:00'
+
 
 
 # Server
