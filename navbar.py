@@ -13,12 +13,14 @@ def table():
         # Need to make dynamic
         html.Thead(html.Tr([html.Th("Current View: Student")]))
     ]
-    row1 = html.Tr([html.Td("Current Time: ", id = "time"),
-                    dcc.Interval(
-                        id = 'interval-component',
-                        interval = 1000,
-                        n_intervals = 0                        
-                    )])
+    row1 = html.Tr([html.Td(datetime.now().strftime("%Y-%m-%d %H:%M"), id = "time"
+                    # "Current Time: ", id = "time"),
+                    # dcc.Interval(
+                    #     id = 'interval-component',
+                    #     interval = 1000,
+                    #     n_intervals = 0                       
+                    )
+                    ])
     table_body = [html.Tbody([row1])]
 
     table = dbc.Table(table_header + table_body, bordered=True)
@@ -67,14 +69,14 @@ layout = dbc.Navbar(
                                     #   ),
                                    dcc.Input(id="hour_input", placeholder="Hour", type="number", value = datetime.now().hour, min=0,max=23),
                                    dcc.Input(id="minute_input", placeholder="Minute", type="number", value = datetime.now().minute, min=0, max=59),
-                                   html.P(id = 'custom_time_output'),
+                                   #html.P(id = 'time'),
 
                                    #Button doesn't function for now
-                                   html.Button('Update time using custom time: ', id = 'update_time', n_clicks = 0)
+                                   #html.Button('Update time using custom time: ', id = 'update_button', n_clicks = 0)
                                    ],
-                                    label = "Change Time"
+                                    label = "Change time"
                                 ),
-                                width={"size": 2, "order": 4},
+                                width={"size": 2, "order": 4}
                             ),
                             dbc.Col(
                                 dbc.Button(

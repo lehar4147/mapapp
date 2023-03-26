@@ -22,24 +22,30 @@ app.layout = html.Div([
     )
 ])
 
-@app.callback(
-    Output('time', 'children'),
-    [Input('interval-component', 'n_intervals')]
-)
-def update_time(n):
-    return datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+# @app.callback(
+#     Output('time', 'children'),
+#     [Input('interval-component', 'n_intervals')]
+# )
+# def update_time(n):
+#     return datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
 @app.callback(
-    Output('custom_time_output','children'),
+    Output('time','children'),
     [
         Input('date-picker','date'),
         Input('hour_input','value'),
         Input('minute_input','value'),
-#       Input('update_button','n_clicks')
+        #Input('update_button','n_clicks')
     ]
 )
 def new_custom_time(date,hour,minute):  
-    return f'Custom date and time: {date}, {hour}:{minute}'
+    if (hour is not None) and (minute is not None):
+        if (0 <= minute < 10):
+            return f'{date}, {hour}:0{minute}'
+        else:
+            return f'{date}, {hour}:{minute}'
+
+
 # Server
 
 if __name__ == '__main__':
