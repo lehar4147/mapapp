@@ -4,6 +4,9 @@ import dash_bootstrap_components as dbc
 import map
 import navbar
 
+from dash.dependencies import Output, Input
+import datetime
+
 # App Initialization
 
 app = Dash(__name__,external_stylesheets=[dbc.themes.BOOTSTRAP])
@@ -19,6 +22,24 @@ app.layout = html.Div([
     )
 ])
 
+@app.callback(
+    Output('time', 'children'),
+    [Input('interval-component', 'n_intervals')]
+)
+def update_time(n):
+    return datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+
+@app.callback(
+    Output('custom_time_output','children'),
+    [
+        Input('date-picker','date'),
+        Input('hour_input','value'),
+        Input('minute_input','value'),
+#       Input('update_button','n_clicks')
+    ]
+)
+def new_custom_time(date,hour,minute):  
+    return f'Custom date and time: {date}, {hour}:{minute}'
 # Server
 
 if __name__ == '__main__':
