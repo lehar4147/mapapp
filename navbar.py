@@ -25,9 +25,7 @@ def table():
     return table
 
 
-app.layout = html.Div([
-    html.Div(    
-        dbc.Navbar(
+layout = dbc.Navbar(
             dbc.Container(
                 [
                     dbc.Row(
@@ -91,11 +89,3 @@ app.layout = html.Div([
             ),
             color = "primary"
         )
-    ),
-    html.Div(
-        className = "map-view",
-        children = [
-            dcc.Graph(figure=fig)
-        ]
-    )
-])
