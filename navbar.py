@@ -1,28 +1,33 @@
+from dash import Dash
+from dash import dcc
 from dash import html
-from datetime import datetime
+from datetime import datetime, date
 import dash_bootstrap_components as dbc
+from dash import dcc
+
+from datetime import datetime
 
 # Functions
-
-#RPI_MAP_APP_LOGO = "....png"
-def get_time():
-    current_time = datetime.now().strftime("%H:%M")
-    return current_time
-
 def table():
     table_header = [
         # Need to make dynamic
         html.Thead(html.Tr([html.Th("Current View: Student")]))
     ]
-    row1 = html.Tr([html.Td("Current Time: " + get_time())])
+    row1 = html.Tr([html.Td("Current Time: ", id = "time"),
+                    dcc.Interval(
+                        id = 'interval-component',
+                        interval = 1000,
+                        n_intervals = 0                        
+                    )])
     table_body = [html.Tbody([row1])]
 
     table = dbc.Table(table_header + table_body, bordered=True)
     return table
 
-# Layout
 
-layout = dbc.Navbar(
+app.layout = html.Div([
+    html.Div(    
+        dbc.Navbar(
             dbc.Container(
                 [
                     dbc.Row(
@@ -48,31 +53,27 @@ layout = dbc.Navbar(
                             dbc.Col(
                                 dbc.DropdownMenu(
                                     [
-                                      dbc.DropdownMenu(
-                                        [
-                                            dbc.DropdownMenuItem("Monday"),
-                                            dbc.DropdownMenuItem("Tuesday"),
-                                            dbc.DropdownMenuItem("Wednesday"),
-                                            dbc.DropdownMenuItem("Thursday"),
-                                            dbc.DropdownMenuItem("Friday"),
-                                            dbc.DropdownMenuItem("Saturday"),
-                                            dbc.DropdownMenuItem("Sunday"),
-                                        ],
-                                        label = "Day"
+                                      dcc.DatePickerSingle(
+                                        id = 'date-picker',
+                                        min_date_allowed=date(2023,3,28),
+                                        max_date_allowed=date(2023,12,31),
+                                        date=date.today()
                                       ),
-                                      dbc.Input(id="hour_input", placeholder="Hour", type="number",min=0,max=23),
-                                      dbc.Input(id="minute_input", placeholder="Minute", type="number", min=0, max=59),
-                                      dbc.DropdownMenu(
-                                        [
-                                            dbc.DropdownMenuItem("AM", id = "trigger_am"),
-                                            dbc.DropdownMenuItem("PM", id = "trigger_pm")
-                                        ],
-                                        label = "AM/PM",
-                                        direction = "up"
-                                      ),
-                                      html.P('Current time: ')
-                                      # Need to make function to update time while input is given
-                                    ],
+                                    #   dbc.DropdownMenu(
+                                    #     [
+                                    #         dbc.DropdownMenuItem("AM", id = "trigger_am"),
+                                    #         dbc.DropdownMenuItem("PM", id = "trigger_pm")
+                                    #     ],
+                                    #     label = "AM/PM",
+                                    #     direction = "right"
+                                    #   ),
+                                   dcc.Input(id="hour_input", placeholder="Hour", type="number", value = datetime.now().hour, min=0,max=23),
+                                   dcc.Input(id="minute_input", placeholder="Minute", type="number", value = datetime.now().minute, min=0, max=59),
+                                   html.P(id = 'custom_time_output'),
+
+                                   #Button doesn't function for now
+                                   html.Button('Update time using custom time: ', id = 'update_time', n_clicks = 0)
+                                   ],
                                     label = "Change Time"
                                 ),
                                 width={"size": 2, "order": 4},
@@ -90,15 +91,11 @@ layout = dbc.Navbar(
             ),
             color = "primary"
         )
-
-# Callbacks
-
-# @app.callback(
-#     Output("current_AM_PM","children"), [Input("trigger_am", "PM")]
-# )
-
-# def update_am_pm(clicked):
-#     if (clicked == 'PM'){
-#         return f'Output: {PM}'
-#     }
-#     return f'Output: {AM}'
+    ),
+    html.Div(
+        className = "map-view",
+        children = [
+            dcc.Graph(figure=fig)
+        ]
+    )
+])
