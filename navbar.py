@@ -9,10 +9,14 @@ def get_time():
     current_time = datetime.now().strftime("%H:%M")
     return current_time
 
+#def get_view():
+    # not sure how to check which view has been selected
+    return current_view
+
 def table():
     table_header = [
         # Need to make dynamic
-        html.Thead(html.Tr([html.Th("Current View: Student")]))
+        html.Thead(html.Tr([html.Th("Current View: ")]))
     ]
     row1 = html.Tr([html.Td("Current Time: " + get_time())])
     table_body = [html.Tbody([row1])]
