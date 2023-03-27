@@ -1,4 +1,5 @@
 import navbar
+import import_schedule
 
 class Building:
     def __init__(self, name, code, building_type, address, longitude, latitude, image, description, building_hours, shops):
@@ -29,10 +30,10 @@ class Building:
         return self.building_hours
     
     def isOpen(self):
-        time = navbar.getTime()
-        for hours in self.building_hours:
-            if hours[1] <= time and time <= hours[2]:
-                return True
+        #time = navbar.getTime()
+        #for hours in self.building_hours:
+        #if hours[1] <= time and time <= hours[2]:
+        return True
 
 class Shop:
     def __init__(self, name, code, shop_type, shop_hours):
@@ -43,6 +44,6 @@ class Shop:
 
     def getSchedule(self):
         return self.shop_hours
-    
+
 # List of buildings to be read into the map
-buildings = []
+buildings = [Building("Troy Building", 0, "", "", 42.73, -73.6775, 0, "Troy Building", [], [])]#import_schedule.run_import()
