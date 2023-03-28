@@ -38,7 +38,7 @@
 </head>
 <body>
     
-    
+
             <div class="folium-map" id="map_0aea6ffbc8e52aae3a7290c0d0e74f09" ></div>
         
 </body>
@@ -50,7 +50,8 @@
                 {
                     center: [42.73, -73.6775],
                     crs: L.CRS.EPSG3857,
-                    zoom: 24,
+                    maxBounds: [[42.72558, -73.6899], [42.73984, -73.66338]],
+                    zoom: 18,
                     zoomControl: true,
                     preferCanvas: false,
                 }
@@ -59,7 +60,6 @@
             
 
         
-    
             var tile_layer_9e32959049fcebe08b957060a09d2ced = L.tileLayer(
                 "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
                 {"attribution": "Data by \u0026copy; \u003ca target=\"_blank\" href=\"http://openstreetmap.org\"\u003eOpenStreetMap\u003c/a\u003e, under \u003ca target=\"_blank\" href=\"http://www.openstreetmap.org/copyright\"\u003eODbL\u003c/a\u003e.", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}

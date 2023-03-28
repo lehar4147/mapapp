@@ -8,10 +8,19 @@ from dash import dcc
 from datetime import datetime
 
 # Functions
+
+def get_time():
+    current_time = datetime.now().strftime("%H:%M")
+    return current_time
+
+#def get_view():
+    # not sure how to check which view has been selected
+    return current_view
+
 def table():
     table_header = [
         # Need to make dynamic
-        html.Thead(html.Tr([html.Th("Current View: Student")]))
+        html.Thead(html.Tr([html.Th("Current View: ")]))
     ]
     row1 = html.Tr([html.Td(datetime.now().strftime("%Y-%m-%d %H:%M"), id = "time"
                     # "Current Time: ", id = "time"),
