@@ -12,16 +12,9 @@ dotw = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Satur
 def run_import():
     ssl._create_default_https_context = ssl._create_unverified_context
     url = 'https://publicsafety.rpi.edu/campus-security/card-access-schedule'
-    url2 = 'https://nominatim.openstreetmap.org/search?q=134+pilkington+avenue,+birmingham&format=json&polygon=1&addressdetails=1'
+    #url2 = 'https://nominatim.openstreetmap.org/search?q=134+pilkington+avenue,+birmingham&format=json&polygon=1&addressdetails=1'
     urlretrieve(url, 'rawdata.html')
-    urlretrieve(url2, 'temp.json')
-    with open("temp.json", 'r') as f:
-        data = f.read()
-    newdata = data[1:data.index('},')] + '}'
-    with open("temp.json", 'w') as f:
-        f.write(newdata)
     soup = BeautifulSoup(open("rawdata.html", encoding="utf8").read(), 'html.parser')
-    cordinfo = json.loads(open("temp.json", encoding="utf8").read())
 
     building_list = []
 
@@ -47,7 +40,30 @@ def run_import():
                             #index2 = small_segments[2].index('PM')
                             #opentime = datetime.time(int(small_segments[0][0:index1]),0,0)
                             #closetime = datetime.time(int(small_segments[2][0:index2])+12,0,0)
-            building_list.append(building.Building(temp_list[0], 0, '', '', 0, 0, 0, temp_list[0], building_hours, []))
+            if ('/' in temp_list[0]):
+                t = temp_list[0].split('/')
+                temp_list[0] = t[1]
+            if ('\xa0' in temp_list[0]):
+                temp_list[0] = temp_list[0].replace('\xa0', '')
+            urlstring = temp_list[0].replace(" ", "+")
+            testurl = 'https://nominatim.openstreetmap.org/search?q='+urlstring+',+troy,+new+york&format=json&polygon=1&addressdetails=1'
+            urlretrieve(testurl, 'temp.json')
+            with open("temp.json", 'r') as f:
+                data = f.read()
+            #if (data == '[]'):
+                #building_list.append(building.Building(temp_list[0], 0, '', '', 0, 0, 0, temp_list[0], building_hours, []))
+            #else:
+            if (data != '[]'):
+                if ('},' in data):
+                    newdata = data[1:data.index('},')] + '}'
+                else:
+                    newdata = data[1:len(data)-1]
+                with open("temp.json", 'w') as f:
+                    f.write(newdata)
+                cordinfo = json.loads(open("temp.json", encoding="utf8").read())
+                building_list.append(building.Building(temp_list[0], 0, '', '', float(cordinfo['lon']), float(cordinfo['lat']), 0, temp_list[0], building_hours, []))
+            if (len(building_list) > 0):
+                return building_list
 
     return building_list
 
