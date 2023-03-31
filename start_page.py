@@ -55,6 +55,6 @@ def new_custom_time(date,hour,minute):
 
 
 # Server
-
+map.reloadMap()
 if __name__ == '__main__':
     app.run_server(debug=True)
