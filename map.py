@@ -32,7 +32,7 @@ for build in building.buildings:
         color = "green"
     
     marker = folium.Marker(
-        location=[build.getLongitude(), build.getLatitude()],
+        location=[build.getLatitude(), build.getLongitude()],
         icon=folium.Icon(color = color, icon = icon),
         popup=build.getName(),
         tooltip=tooltip)

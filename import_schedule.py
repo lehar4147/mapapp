@@ -12,7 +12,6 @@ dotw = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Satur
 def run_import():
     ssl._create_default_https_context = ssl._create_unverified_context
     url = 'https://publicsafety.rpi.edu/campus-security/card-access-schedule'
-    #url2 = 'https://nominatim.openstreetmap.org/search?q=134+pilkington+avenue,+birmingham&format=json&polygon=1&addressdetails=1'
     urlretrieve(url, 'rawdata.html')
     soup = BeautifulSoup(open("rawdata.html", encoding="utf8").read(), 'html.parser')
 
@@ -23,11 +22,11 @@ def run_import():
         for element in row.find_all('td'):
             temp_list.append(element.next)
         if (len(temp_list) > 0):
-            building_hours = []
+            #building_hours = []
             # Parse hours (edge case)
-            if (temp_list[2] == '24/7'):
-                for day in dotw:
-                    building_hours.append((day, datetime.time(12,0,0), datetime.time(23,59,59)))
+            #if (temp_list[2] == '24/7'):
+                #for day in dotw:
+                    #building_hours.append((day, datetime.time(12,0,0), datetime.time(23,59,59)))
             # Regular Parsing for hours is not implemented yet
             #else:
                 #words = temp_list[2].split()
@@ -50,9 +49,6 @@ def run_import():
             urlretrieve(testurl, 'temp.json')
             with open("temp.json", 'r') as f:
                 data = f.read()
-            #if (data == '[]'):
-                #building_list.append(building.Building(temp_list[0], 0, '', '', 0, 0, 0, temp_list[0], building_hours, []))
-            #else:
             if (data != '[]'):
                 if ('},' in data):
                     newdata = data[1:data.index('},')] + '}'
@@ -61,9 +57,7 @@ def run_import():
                 with open("temp.json", 'w') as f:
                     f.write(newdata)
                 cordinfo = json.loads(open("temp.json", encoding="utf8").read())
-                building_list.append(building.Building(temp_list[0], 0, '', '', float(cordinfo['lon']), float(cordinfo['lat']), 0, temp_list[0], building_hours, []))
-            if (len(building_list) > 0):
-                return building_list
+                building_list.append(building.Building(temp_list[0], 0, '', '', float(cordinfo['lon']), float(cordinfo['lat']), 0, temp_list[0], [], []))
 
     return building_list
 

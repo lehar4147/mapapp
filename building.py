@@ -46,4 +46,4 @@ class Shop:
         return self.shop_hours
 
 # List of buildings to be read into the map
-buildings = [Building("Troy Building", 0, "", "", 42.73, -73.6775, 0, "Troy Building", [], [])]#import_schedule.run_import()
+buildings = import_schedule.run_import()
