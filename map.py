@@ -39,6 +39,8 @@ def reloadMap():
                     html += f"""
                         <p>{sched[0]}: {sched[1]} - {sched[2]}</p>
                         """
+        iframe = folium.IFrame(html=html, width=300, height=200)
+        popup = folium.Popup(iframe, max_width=300)
 
         color = "red"
         icon = "info-sign"
@@ -64,7 +66,7 @@ def reloadMap():
         marker = folium.Marker(
             location=[build.getLongitude(), build.getLatitude()],
             icon=folium.Icon(color = color, icon = icon),
-            popup=build.getName(),
+            popup=popup,
             tooltip=tooltip)
         marker.add_to(my_map)
 
