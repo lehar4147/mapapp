@@ -3,6 +3,7 @@ import folium
 
 import building
 
+# Main map
 RPI_coor = [42.73, -73.6775]
 
 def reloadMap():
@@ -64,7 +65,7 @@ def reloadMap():
             color = "green"
     
         marker = folium.Marker(
-            location=[build.getLongitude(), build.getLatitude()],
+            location=[build.getLatitude(), build.getLongitude()],
             icon=folium.Icon(color = color, icon = icon),
             popup=popup,
             tooltip=tooltip)
