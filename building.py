@@ -29,6 +29,12 @@ class Building:
     def getSchedule(self):
         return self.building_hours
     
+    def numShops(self):
+        return len(self.shops)
+
+    def getShops(self):
+        return self.shops
+    
     def isOpen(self):
         #time = navbar.getTime()
         #for hours in self.building_hours:
@@ -41,6 +47,9 @@ class Shop:
         self.code = code
         self.shop_type = shop_type
         self.shop_hours = shop_hours
+
+    def getName(self):
+        return self.name
 
     def getSchedule(self):
         return self.shop_hours
