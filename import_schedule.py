@@ -57,7 +57,7 @@ def run_import():
                 with open("temp.json", 'w') as f:
                     f.write(newdata)
                 cordinfo = json.loads(open("temp.json", encoding="utf8").read())
-                building_list.append(building.Building(temp_list[0], 0, '', '', float(cordinfo['lon']), float(cordinfo['lat']), 0, temp_list[0], [], []))
+                building_list.append(building.Building(temp_list[0], 0, '', '', float(cordinfo['lon']), float(cordinfo['lat']), 0, '', [], []))
 
     return building_list
 

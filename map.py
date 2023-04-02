@@ -21,11 +21,11 @@ def reloadMap():
     # Marker
     tooltip = "Click Here For More Info"
     for build in building.buildings:
-        html = f""""
+        html = f"""
             <h1>{build.getName()}</h1>
             <p>{build.description}</p>
             """
-        for sched in build.getShcedule():
+        for sched in build.getSchedule():
             html += f"""
                 <p>{sched[0]}: {sched[1]} - {sched[2]}</p>
                 """
