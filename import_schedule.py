@@ -42,6 +42,7 @@ def run_import():
                 with open("temp.json", 'w') as f:
                     f.write(newdata)
                 cordinfo = json.loads(open("temp.json", encoding="utf8").read())
+                
                 building_hours = []
                 # Parse hours (edge case)
                 if (temp_list[2] == '24/7'):
