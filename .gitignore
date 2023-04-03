@@ -1,0 +1,5 @@
+#Ignore the following files
+my_map.html
+temp.json
+rawdata.html
+__pycache__/
