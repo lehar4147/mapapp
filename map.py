@@ -21,6 +21,28 @@ def reloadMap():
     # Marker
     tooltip = "Click Here For More Info"
     for build in building.buildings:
+        html = f"""
+            <h1>{build.getName()}</h1>
+            <p>{build.description}</p>
+            """
+        for sched in build.getSchedule():
+            html += f"""
+                <p>{sched[0]}: {sched[1]} - {sched[2]}</p>
+                """
+        
+        if (build.numShops() > 0):
+            html += "<h3>Shops</h3>"
+            for shop in build.getShops():
+                html += f"""
+                    <h4>{shop.getName()}</h4>
+                    """
+                for sched in shop.getShedule():
+                    html += f"""
+                        <p>{sched[0]}: {sched[1]} - {sched[2]}</p>
+                        """
+        iframe = folium.IFrame(html=html, width=300, height=200)
+        popup = folium.Popup(iframe, max_width=300)
+
         color = "red"
         icon = "info-sign"
 
@@ -45,7 +67,7 @@ def reloadMap():
         marker = folium.Marker(
             location=[build.getLatitude(), build.getLongitude()],
             icon=folium.Icon(color = color, icon = icon),
-            popup=build.getName(),
+            popup=popup,
             tooltip=tooltip)
         marker.add_to(my_map)
 

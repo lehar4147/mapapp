@@ -22,11 +22,11 @@ def run_import():
         for element in row.find_all('td'):
             temp_list.append(element.next)
         if (len(temp_list) > 0):
-            #building_hours = []
+            building_hours = []
             # Parse hours (edge case)
-            #if (temp_list[2] == '24/7'):
-                #for day in dotw:
-                    #building_hours.append((day, datetime.time(12,0,0), datetime.time(23,59,59)))
+            if (temp_list[2] == '24/7'):
+                for day in dotw:
+                    building_hours.append((day, datetime.time(0,0), datetime.time(23,59)))
             # Regular Parsing for hours is not implemented yet
             #else:
                 #words = temp_list[2].split()
@@ -57,7 +57,7 @@ def run_import():
                 with open("temp.json", 'w') as f:
                     f.write(newdata)
                 cordinfo = json.loads(open("temp.json", encoding="utf8").read())
-                building_list.append(building.Building(temp_list[0], 0, '', '', float(cordinfo['lon']), float(cordinfo['lat']), 0, temp_list[0], [], []))
+                building_list.append(building.Building(temp_list[0], 0, '', '', float(cordinfo['lon']), float(cordinfo['lat']), 0, '', building_hours, []))
 
     return building_list
 
