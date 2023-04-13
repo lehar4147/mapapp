@@ -21,7 +21,7 @@ def reloadMap():
     # Marker
     tooltip = "Click Here For More Info"
     for build in building.buildings:
-        html = f""""
+        html = f"""
             <h1>{build.getName()}</h1>
             <p>{build.description}</p>
             """
