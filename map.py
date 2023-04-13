@@ -36,7 +36,7 @@ def reloadMap():
                 html += f"""
                     <h4>{shop.getName()}</h4>
                     """
-                for sched in shop.getShedule():
+                for sched in shop.getSchedule():
                     html += f"""
                         <p>{sched[0]}: {sched[1]} - {sched[2]}</p>
                         """
