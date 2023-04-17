@@ -30,7 +30,7 @@ app.layout = html.Div([
 
 @app.callback(
     Output('time','children'),
-    Output('updated-time','value'),
+    #Output('updated-time','value'),
     [
         Input('interval-component', 'n_intervals'),
         Input('date-picker','date'),
@@ -38,7 +38,7 @@ app.layout = html.Div([
         Input('minute_input','value'),
         #Input('update_button','n_clicks')
     ],
-    State('updated-time','value')
+    #State('updated-time','value')
 )
 def new_custom_time(n,date,hour,minute):  
     if hour is not None and minute is not None:
@@ -50,8 +50,9 @@ def new_custom_time(n,date,hour,minute):
     else:
         current_time = datetime.datetime.now()
     current_time_str = current_time.strftime('%I:%M:%S %p')
-    return f'{current_time_str}', current_time_str
+    return f'{current_time_str}'#, current_time_str
 
+'''
 @app.callback(
     #'updated-map-status, some_other_callback will be used to update the map
     Output('updated-map-status','children'),
@@ -59,8 +60,9 @@ def new_custom_time(n,date,hour,minute):
 )
 def some_other_callback(updated_time_value):
     # do something with updated_time_value
+    print(updated_time_value)
     return
-
+'''
 
 # Server
 if __name__ == '__main__':
