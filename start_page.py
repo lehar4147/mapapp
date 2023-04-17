@@ -3,6 +3,7 @@ from dash import html
 import dash_bootstrap_components as dbc
 import map
 import navbar
+import dash
 
 from dash.dependencies import Output, Input, State
 import datetime
@@ -82,20 +83,23 @@ def some_other_callback(updated_time_value):
 )
 
 def change_view(student,faculty,staff,guest):
-    view = 0   # show all buildings
-    if student:
+    ctx = dash.callback_context
+
+    if (student is None and faculty is None and staff is None and guest is None) or not ctx.triggered:
+        return ""
+
+    button_id = ctx.triggered[0]["prop_id"].split(".")[0]
+
+    if button_id == "Student":
         map.reloadMap(1)
-        return f"Student View."
-    if faculty:
+    if button_id == "Faculty":
         map.reloadMap(2)
-        return f"Faculty View."
-    if staff:
+    if button_id == "Staff":
         map.reloadMap(3)
-        return f"Staff View."
-    if guest:
+    if button_id == "Guest":
         map.reloadMap(4)
-        return f"Guest View."
-    return "" # Button not clicked yet
+
+    return button_id
 
 # Server
 if __name__ == '__main__':
