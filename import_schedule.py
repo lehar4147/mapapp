@@ -69,7 +69,7 @@ def run_import():
                                     endindex = dotw.index(endday)
                                     for i in range(startindex, endindex+1):
                                         building_hours.append((dotw[i], opentime, closetime))
-                building_list.append(building.Building(temp_list[0], 0, '', '', float(cordinfo['lon']), float(cordinfo['lat']), 0, '', building_hours, []))
+                building_list.append(building.Building(temp_list[0], 0, '', '', float(cordinfo['lon']), float(cordinfo['lat']), 0, '', building_hours, 0, []))
 
     return building_list
 

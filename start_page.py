@@ -71,6 +71,32 @@ def some_other_callback(updated_time_value):
     return
 '''
 
+@app.callback(
+    Output("view", "children"),
+    [
+        Input("Student", "n_clicks"),
+        Input("Faculty", "n_clicks"),
+        Input("Staff", "n_clicks"),
+        Input("Guest", "n_clicks"),
+    ],
+)
+
+def change_view(student,faculty,staff,guest):
+    view = 0   # show all buildings
+    if student:
+        map.reloadMap(1)
+        return f"Student View."
+    if faculty:
+        map.reloadMap(2)
+        return f"Faculty View."
+    if staff:
+        map.reloadMap(3)
+        return f"Staff View."
+    if guest:
+        map.reloadMap(4)
+        return f"Guest View."
+    return "" # Button not clicked yet
+
 # Server
 if __name__ == '__main__':
     app.run_server(debug=True)

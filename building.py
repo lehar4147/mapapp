@@ -2,7 +2,7 @@ import navbar
 import import_schedule
 
 class Building:
-    def __init__(self, name, code, building_type, address, longitude, latitude, image, description, building_hours, shops):
+    def __init__(self, name, code, building_type, address, longitude, latitude, image, description, building_hours, building_access, shops):
         self.name = name
         self.code = code
         self.building_type = building_type
@@ -12,6 +12,7 @@ class Building:
         self.image = image
         self.description = description
         self.building_hours = building_hours # list of tuples (day, open, close)
+        self.building_access = building_access
         self.shops = shops
 
     def getName(self):
@@ -35,11 +36,19 @@ class Building:
     def getShops(self):
         return self.shops
     
-    def isOpen(self):
+    def isOpen(self): # view argument represent the point of view of the viewer, specifically:
+                      # 0 = not specified
+                      # 1 = Student View
+                      # 2 = Faculty View
+                      # 3 = Staff View
+                      # 4 = Guest View
+        result = False
+        if self.building_access == 0:
+            result = True
         #time = navbar.getTime()
         #for hours in self.building_hours:
         #if hours[1] <= time and time <= hours[2]:
-        return True
+        return result
 
 class Shop:
     def __init__(self, name, code, shop_type, shop_hours):
