@@ -36,7 +36,7 @@ class Building:
     def getShops(self):
         return self.shops
     
-    def isOpen(self): # view argument represent the point of view of the viewer, specifically:
+    def isOpen(self, view): # view argument represent the point of view of the viewer, specifically:
                       # 0 = not specified
                       # 1 = Student View
                       # 2 = Faculty View
@@ -49,7 +49,10 @@ class Building:
             result = True
         else:
             # Depends on view
-            result = True
+            if view == 4:
+                result = False
+            else:
+                result = True
         #time = navbar.getTime()
         #for hours in self.building_hours:
         #if hours[1] <= time and time <= hours[2]:

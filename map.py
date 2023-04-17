@@ -61,7 +61,7 @@ def reloadMap(view):
             icon = "question-sign"
 
         # color indicates if the building is open or not
-        if (build.isOpen()):
+        if (build.isOpen(view)):
             color = "green"
     
         marker = folium.Marker(
@@ -74,5 +74,5 @@ def reloadMap(view):
     my_map.save('my_map.html')
 
 # Layout
-reloadMap(1)
+reloadMap(0)
 layout = html.Iframe(id='map', srcDoc=open('my_map.html','r').read(), width='100%', height='600')
