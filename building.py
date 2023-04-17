@@ -42,8 +42,13 @@ class Building:
                       # 2 = Faculty View
                       # 3 = Staff View
                       # 4 = Guest View
-        result = False
-        if self.building_access == 0:
+        # For now it disregards time
+        if self.building_access == 'Locked/Closed':
+            result = False
+        elif self.building_access == 'Unlocked':
+            result = True
+        else:
+            # Depends on view
             result = True
         #time = navbar.getTime()
         #for hours in self.building_hours:

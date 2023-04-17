@@ -7,6 +7,7 @@ import json
 import building
 
 dotw = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+building_type_list = ["Community Access", "Unlocked", "Locked/Closed"]
 # Ignore for building hours
 badformat = ["Cogswell", "Folsom Library", "Mueller Center"]
 
@@ -24,6 +25,7 @@ def run_import():
         for element in row.find_all('td'):
             temp_list.append(element.next)
         if (len(temp_list) > 0):
+            buildaccess = ''
             if ('/' in temp_list[0]):
                 t = temp_list[0].split('/')
                 temp_list[0] = t[1]
@@ -42,6 +44,10 @@ def run_import():
                 with open("temp.json", 'w') as f:
                     f.write(newdata)
                 cordinfo = json.loads(open("temp.json", encoding="utf8").read())
+
+                for b in building_type_list:
+                    if (b in temp_list[1]):
+                        buildaccess = b
                 
                 building_hours = []
                 # Parse hours (edge case)
@@ -69,7 +75,7 @@ def run_import():
                                     endindex = dotw.index(endday)
                                     for i in range(startindex, endindex+1):
                                         building_hours.append((dotw[i], opentime, closetime))
-                building_list.append(building.Building(temp_list[0], 0, '', '', float(cordinfo['lon']), float(cordinfo['lat']), 0, '', building_hours, 0, []))
+                building_list.append(building.Building(temp_list[0], 0, '', '', float(cordinfo['lon']), float(cordinfo['lat']), 0, '', building_hours, buildaccess, []))
 
     return building_list
 
