@@ -5,24 +5,26 @@ from datetime import datetime, date
 import dash_bootstrap_components as dbc
 from dash import dcc
 
-from datetime import datetime
 
 # Functions
 
-def get_time():
-    current_time = datetime.now().strftime("%H:%M")
-    return current_time
 
 #def get_view():
     # not sure how to check which view has been selected
-    return current_view
+    #return current_view
 
+"""
 def table():
     table_header = [
         # Need to make dynamic
         html.Thead(html.Tr([html.Th("Current View: ")]))
     ]
-    row1 = html.Tr([html.Td(datetime.now().strftime("%Y-%m-%d %H:%M"), id = "time"
+    row1 = html.Tr([html.Td( dcc.Markdown(id = 'time'),
+                             dcc.Interval(
+                                id = 'interval-component',
+                                interval = 1000,
+                                n_intervals = 0
+                             )
                     # "Current Time: ", id = "time"),
                     # dcc.Interval(
                     #     id = 'interval-component',
@@ -34,7 +36,7 @@ def table():
 
     table = dbc.Table(table_header + table_body, bordered=True)
     return table
-
+"""
 
 layout = dbc.Navbar(
             dbc.Container(
@@ -44,11 +46,20 @@ layout = dbc.Navbar(
                             #dbc.Col(html.Img(src=RPI_MAP_APP_LOGO, height=""))
                             #Put in title for now
                             dbc.Col(
-                                html.Div("RPI Map App"),
+                                html.Div([html.H2("RPI Map App")]),
                                 width={"size": 3, "order": 1}
                             ),
                             dbc.Col(
-                                html.Div(table()),
+                                html.Div([
+                                    html.H3("Current time: "),
+                                    html.P(id = 'time'),
+                                    dcc.Interval(
+                                        id = 'interval-component',
+                                        interval = 1000,
+                                        n_intervals = 0
+                                    ),
+                                    dcc.Input(id='hidden-input', type='hidden', value='')
+                                ]),
                                 width={"size": 3, "order": 2}
                             ),
                             dbc.Col(
@@ -79,8 +90,8 @@ layout = dbc.Navbar(
                                     #     label = "AM/PM",
                                     #     direction = "right"
                                     #   ),
-                                   dcc.Input(id="hour_input", placeholder="Hour", type="number", value = datetime.now().hour, min=0,max=23),
-                                   dcc.Input(id="minute_input", placeholder="Minute", type="number", value = datetime.now().minute, min=0, max=59),
+                                   dcc.Input(id="hour_input", placeholder="Hour", type="number", min=0,max=23),
+                                   dcc.Input(id="minute_input", placeholder="Minute", type="number", min=0, max=59),
                                    #html.P(id = 'time'),
 
                                    #Button doesn't function for now
