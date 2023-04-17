@@ -10,6 +10,7 @@ import datetime
 
 app = Dash(__name__,external_stylesheets=[dbc.themes.BOOTSTRAP])
 
+#setted_time = None
 # Layout
 
 app.layout = html.Div([
@@ -27,6 +28,8 @@ app.layout = html.Div([
 # )
 # def update_time(n):
 #     return datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+
+#def map_function(current_time_str)
 
 @app.callback(
     Output('time','children'),
@@ -50,6 +53,10 @@ def new_custom_time(n,date,hour,minute):
     else:
         current_time = datetime.datetime.now()
     current_time_str = current_time.strftime('%I:%M:%S %p')
+    #global setted_time
+    #setted_time = current_time_str
+
+    #map_function(current_time_str)
     return f'{current_time_str}'#, current_time_str
 
 '''
