@@ -53,12 +53,15 @@ layout = dbc.Navbar(
                             ),
                             dbc.Col(
                                 dbc.DropdownMenu(
-                                    [dbc.DropdownMenuItem("Student"),dbc.DropdownMenuItem("Faculty"),
-                                     dbc.DropdownMenuItem("Staff"),dbc.DropdownMenuItem("Guest")],
+                                    [dbc.DropdownMenuItem("Student", id="Student"),
+                                     dbc.DropdownMenuItem("Faculty", id="Faculty"),
+                                     dbc.DropdownMenuItem("Staff", id="Staff"),
+                                     dbc.DropdownMenuItem("Guest", id="Guest")],
                                      label="Change View"
                                 ),
                                 width={"size": 2, "order": 3}
                             ),
+                            html.P(id="view", className="mt-3"),
                             dbc.Col(
                                 dbc.DropdownMenu(
                                     [
