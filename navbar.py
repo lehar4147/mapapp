@@ -4,15 +4,10 @@ from dash import html
 from datetime import datetime, date
 import dash_bootstrap_components as dbc
 from dash import dcc
-import markdown
 
-from datetime import datetime
 
 # Functions
 
-def get_time():
-    current_time = datetime.now().strftime("%H:%M")
-    return current_time
 
 #def get_view():
     # not sure how to check which view has been selected
@@ -51,7 +46,7 @@ layout = dbc.Navbar(
                             #dbc.Col(html.Img(src=RPI_MAP_APP_LOGO, height=""))
                             #Put in title for now
                             dbc.Col(
-                                html.Div("RPI Map App"),
+                                html.Div([html.H2("RPI Map App")]),
                                 width={"size": 3, "order": 1}
                             ),
                             dbc.Col(
