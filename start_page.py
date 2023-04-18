@@ -101,6 +101,16 @@ def change_view(student,faculty,staff,guest):
 
     return button_id
 
+@app.callback(
+    dash.dependencies.Output('map', 'srcDoc'),
+    [dash.dependencies.Input('view', 'children'),
+     dash.dependencies.Input('time','children')])
+def update_map(view, time):
+    if view == 0 and time == 0:
+        return dash.no_update
+    else:
+        return open('my_map.html', 'r').read()
+
 # Server
 if __name__ == '__main__':
     app.run_server(debug=True)
