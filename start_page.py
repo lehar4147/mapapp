@@ -33,44 +33,42 @@ app.layout = html.Div([
 #def map_function(current_time_str)
 
 @app.callback(
-    Output('time','children'),
-    #Output('updated-time','value'),
-    [
-        Input('interval-component', 'n_intervals'),
-        Input('date-picker','date'),
-        Input('hour_input','value'),
-        Input('minute_input','value'),
-        #Input('update_button','n_clicks')
-    ],
-    #State('updated-time','value')
+    Output('time', 'children'),
+    Input('update_button', 'n_clicks'),
+    Input('reset_button', 'n_clicks'),
+    State('hour_input', 'value'),
+    State('minute_input', 'value'),
 )
-def new_custom_time(n,date,hour,minute):  
-    if hour is not None and minute is not None:
-        current_time = datetime.datetime.strptime(f'{date} {hour}:{minute}', '%Y-%m-%d %H:%M')
-    elif hour is None and minute is not None:
-        current_time = datetime.datetime.strptime(f'{date} 00:{minute}', '%Y-%m-%d %H:%M')
-    elif hour is not None and minute is None:
-        current_time = datetime.datetime.strptime(f'{date} {hour}:00', '%Y-%m-%d %H:%M')
-    else:
+def update_time(update_clicks, reset_clicks, hour, minute):
+    # Check which input triggered the callback
+    ctx = dash.callback_context
+    if not ctx.triggered:
+        # Callback was triggered by the interval component
         current_time = datetime.datetime.now()
-    current_time_str = current_time.strftime('%I:%M:%S %p')
-    #global setted_time
-    #setted_time = current_time_str
-
-    #map_function(current_time_str)
-    return f'{current_time_str}'#, current_time_str
-
-'''
-@app.callback(
-    #'updated-map-status, some_other_callback will be used to update the map
-    Output('updated-map-status','children'),
-    Input('updated-time','value')
-)
-def some_other_callback(updated_time_value):
-    # do something with updated_time_value
-    print(updated_time_value)
-    return
-'''
+    else:
+        # Get the ID of the input that triggered the callback
+        input_id = ctx.triggered[0]['prop_id'].split('.')[0]
+        
+        if input_id == 'update_button':
+            # Update the time with the inputted date and time
+            if hour is not None and minute is not None:
+                current_time = datetime.datetime.strptime(f'{hour}:{minute}', '%H:%M')
+            elif hour is None and minute is not None:
+                current_time = datetime.datetime.strptime(f'00:{minute}', '%H:%M')
+            elif hour is not None and minute is None:
+                current_time = datetime.datetime.strptime(f'{hour}:00', '%H:%M')
+            else:
+                current_time = datetime.datetime.now()
+        elif input_id == 'reset_button':
+            # Reset the time to the current time
+            current_time = datetime.datetime.now()
+        else:
+            # Callback was triggered by the interval component
+            current_time = datetime.datetime.now()
+    
+    # Format the time string and return it as the output
+    current_time_str = current_time.strftime('%I:%M %p')
+    return current_time_str
 
 @app.callback(
     Output("view", "children"),
