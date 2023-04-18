@@ -62,9 +62,6 @@ def update_time(update_clicks, reset_clicks, hour, minute):
         elif input_id == 'reset_button':
             # Reset the time to the current time
             current_time = datetime.datetime.now()
-        else:
-            # Callback was triggered by the interval component
-            current_time = datetime.datetime.now()
     
     # Format the time string and return it as the output
     current_time_str = current_time.strftime('%I:%M %p')
