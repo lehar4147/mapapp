@@ -6,7 +6,7 @@ import building
 # Main map
 RPI_coor = [42.73, -73.6775]
 
-def reloadMap(view):
+def reloadMap(view,time):
     # Main map
     my_map = folium.Map(location=RPI_coor, 
                         min_zoom= 15,
@@ -59,11 +59,11 @@ def reloadMap(view):
             icon = "road"
         elif (build.getBuildingType() == "Other"):
             icon = "question-sign"
-
-        # color indicates if the building is open or not
-        if (build.isOpen(view)):
-            color = "green"
-    
+        
+        if (time != 0):       
+            if (build.isOpen(view,time)):
+                color = "green"
+        
         marker = folium.Marker(
             location=[build.getLatitude(), build.getLongitude()],
             icon=folium.Icon(color = color, icon = icon),
@@ -74,5 +74,5 @@ def reloadMap(view):
     my_map.save('my_map.html')
 
 # Layout
-reloadMap(0)
+reloadMap(0,0)
 layout = html.Iframe(id='map', srcDoc=open('my_map.html','r').read(), width='100%', height='600')

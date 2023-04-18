@@ -49,22 +49,31 @@ def update_time(update_clicks, reset_clicks, hour, minute):
         # Get the ID of the input that triggered the callback
         input_id = ctx.triggered[0]['prop_id'].split('.')[0]
         
+        current_time = datetime.datetime.now()
+        current_day = current_time.strftime('%A')
         if input_id == 'update_button':
             # Update the time with the inputted date and time
             if hour is not None and minute is not None:
-                current_time = datetime.datetime.strptime(f'{hour}:{minute}', '%H:%M')
+                if hour >= 12:
+                    ampm = 'PM'
+                    if hour > 12:
+                        hour -= 12
+                else:
+                    ampm = 'AM'
+                    if hour == 0:
+                        hour = 12
+                current_time = datetime.datetime.strptime(f'{current_day} {hour}:{minute} {ampm}', '%A %I:%M %p')
             elif hour is None and minute is not None:
-                current_time = datetime.datetime.strptime(f'00:{minute}', '%H:%M')
+                current_time = datetime.datetime.strptime(f'{current_day} 00:{minute} PM', '%A %I:%M %p')
             elif hour is not None and minute is None:
-                current_time = datetime.datetime.strptime(f'{hour}:00', '%H:%M')
-            else:
-                current_time = datetime.datetime.now()
-        elif input_id == 'reset_button':
-            # Reset the time to the current time
-            current_time = datetime.datetime.now()
-    
+                if hour >= 12:
+                    ampm = 'PM'
+                else:
+                    ampm = 'AM'
+                current_time = datetime.datetime.strptime(f'{current_day} {hour}:00 {ampm}', '%A %I:%M %p')
     # Format the time string and return it as the output
-    current_time_str = current_time.strftime('%I:%M %p')
+
+    current_time_str = current_time.strftime('%A %I:%M %p')
     return current_time_str
 
 @app.callback(
@@ -85,15 +94,14 @@ def change_view(student,faculty,staff,guest):
 
     button_id = ctx.triggered[0]["prop_id"].split(".")[0]
 
-    if button_id == "Student":
-        map.reloadMap(1)
-    if button_id == "Faculty":
-        map.reloadMap(2)
-    if button_id == "Staff":
-        map.reloadMap(3)
-    if button_id == "Guest":
-        map.reloadMap(4)
-
+#    if button_id == "Student":
+#        map.reloadMap(1,0)
+#    if button_id == "Faculty":
+#        map.reloadMap(2,0)
+#    if button_id == "Staff":
+#        map.reloadMap(3,0)
+#    if button_id == "Guest":
+#        map.reloadMap(4,0)
     return button_id
 
 @app.callback(
@@ -101,10 +109,12 @@ def change_view(student,faculty,staff,guest):
     [dash.dependencies.Input('view', 'children'),
      dash.dependencies.Input('time','children')])
 def update_map(view, time):
-    if view == 0 and time == 0:
-        return dash.no_update
-    else:
-        return open('my_map.html', 'r').read()
+    #print("view: ")
+    #print(view)
+    #print("time: ")
+    #print(time)
+    map.reloadMap(view,time)
+    return open('my_map.html', 'r').read()
 
 # Server
 if __name__ == '__main__':
