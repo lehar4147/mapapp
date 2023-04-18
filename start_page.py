@@ -7,6 +7,13 @@ import dash
 
 from dash.dependencies import Output, Input, State
 import datetime
+
+# global vars
+view = 0
+time = datetime.datetime.now().strftime('%A %I:%M %p')
+
+map.reloadMap(view,time)
+
 # App Initialization
 
 app = Dash(__name__,external_stylesheets=[dbc.themes.BOOTSTRAP])
@@ -74,6 +81,8 @@ def update_time(update_clicks, reset_clicks, hour, minute):
     # Format the time string and return it as the output
 
     current_time_str = current_time.strftime('%A %I:%M %p')
+    global time
+    time = current_time_str
     return current_time_str
 
 @app.callback(
@@ -94,25 +103,22 @@ def change_view(student,faculty,staff,guest):
 
     button_id = ctx.triggered[0]["prop_id"].split(".")[0]
 
-#    if button_id == "Student":
-#        map.reloadMap(1,0)
-#    if button_id == "Faculty":
-#        map.reloadMap(2,0)
-#    if button_id == "Staff":
-#        map.reloadMap(3,0)
-#    if button_id == "Guest":
-#        map.reloadMap(4,0)
-    return button_id
+    global view
+    if button_id == "Student":
+        view = 1
+    if button_id == "Faculty":
+        view = 2
+    if button_id == "Staff":
+        view = 3
+    if button_id == "Guest":
+        view = 4
+    return view
 
 @app.callback(
     dash.dependencies.Output('map', 'srcDoc'),
     [dash.dependencies.Input('view', 'children'),
      dash.dependencies.Input('time','children')])
 def update_map(view, time):
-    #print("view: ")
-    #print(view)
-    #print("time: ")
-    #print(time)
     map.reloadMap(view,time)
     return open('my_map.html', 'r').read()
 

@@ -57,29 +57,31 @@ class Building:
         elif am_pm == 'AM' and hour == 12:
             hour = 0
         minute = int(minute_str)
-        time_result = False
-  
-        view_result = True
+        result = False
+
         #Check current view
         if (view is not None):
             if self.building_access == 'Locked/Closed':
-                view_result = False
+                result = False
             elif self.building_access == 'Unlocked':
-                view_result = True
+                result = True
             else:
                 # Depends on view
                 if view == 4:
-                    view_result = False
+                    result = False
                 else:
-                    view_result = True
-
-        #Check if time is within shedule open hours
-        #print(self.building_hours)
-        for hours in self.building_hours:
-            if hours[0] == day:
-                if hours[1].hour <= hour and hour <= hours[2].hour:
-                    time_result = True
-        return time_result
+                    result = False
+                    #Check if time is within shedule open hours
+                    #print(self.building_hours)
+                    for hours in self.building_hours:
+                        if hours[0] == day:
+                            if int(hours[1].hour) <= hour and hour < int(hours[2].hour):
+                                result = True
+                                break
+                            elif int(hours[2].hour) == hour and int(hours[2].minute) <= minute:
+                                result = True
+                                break
+        return result
 
 class Shop:
     def __init__(self, name, code, shop_type, shop_hours):
