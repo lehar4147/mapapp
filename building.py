@@ -36,26 +36,51 @@ class Building:
     def getShops(self):
         return self.shops
     
-    def isOpen(self, view): # view argument represent the point of view of the viewer, specifically:
+    def isOpen(self, view, time): # view argument represent the point of view of the viewer, specifically:
                       # 0 = not specified
                       # 1 = Student View
                       # 2 = Faculty View
                       # 3 = Staff View
                       # 4 = Guest View
-        # For now it disregards time
-        if self.building_access == 'Locked/Closed':
-            result = False
-        elif self.building_access == 'Unlocked':
-            result = True
-        else:
-            # Depends on view
-            if view == 4:
+        
+        # Split the input date string into day, time, and AM/PM components
+        time_str = time.split(' ')
+        day = time_str[0]
+        # Split the time string into hour and minute components
+        hour_str, minute_str = time_str[1].split(':')
+        am_pm = time_str[2]
+        
+        # Convert the hour into 24-hour format
+        hour = int(hour_str)
+        if am_pm == 'PM' and hour != 12:
+            hour += 12
+        elif am_pm == 'AM' and hour == 12:
+            hour = 0
+        minute = int(minute_str)
+        result = False
+
+        #Check current view
+        if (view is not None):
+            if self.building_access == 'Locked/Closed':
                 result = False
-            else:
+            elif self.building_access == 'Unlocked':
                 result = True
-        #time = navbar.getTime()
-        #for hours in self.building_hours:
-        #if hours[1] <= time and time <= hours[2]:
+            else:
+                # Depends on view
+                if view == 4:
+                    result = False
+                else:
+                    result = False
+                    #Check if time is within shedule open hours
+                    #print(self.building_hours)
+                    for hours in self.building_hours:
+                        if hours[0] == day:
+                            if int(hours[1].hour) <= hour and hour < int(hours[2].hour):
+                                result = True
+                                break
+                            elif int(hours[2].hour) == hour and int(hours[2].minute) <= minute:
+                                result = True
+                                break
         return result
 
 class Shop:

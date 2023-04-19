@@ -52,13 +52,7 @@ layout = dbc.Navbar(
                             dbc.Col(
                                 html.Div([
                                     html.H3("Current time: "),
-                                    html.P(id = 'time'),
-                                    dcc.Interval(
-                                        id = 'interval-component',
-                                        interval = 1000,
-                                        n_intervals = 0
-                                    ),
-                                    dcc.Input(id='hidden-input', type='hidden', value='')
+                                    html.P(id = 'time')
                                 ]),
                                 width={"size": 3, "order": 2}
                             ),
@@ -76,26 +70,21 @@ layout = dbc.Navbar(
                             dbc.Col(
                                 dbc.DropdownMenu(
                                     [
-                                      dcc.DatePickerSingle(
-                                        id = 'date-picker',
-                                        min_date_allowed=date(2023,3,28),
-                                        max_date_allowed=date(2023,12,31),
-                                        date=date.today()
-                                      ),
-                                    #   dbc.DropdownMenu(
-                                    #     [
-                                    #         dbc.DropdownMenuItem("AM", id = "trigger_am"),
-                                    #         dbc.DropdownMenuItem("PM", id = "trigger_pm")
-                                    #     ],
-                                    #     label = "AM/PM",
-                                    #     direction = "right"
-                                    #   ),
-                                   dcc.Input(id="hour_input", placeholder="Hour", type="number", min=0,max=23),
-                                   dcc.Input(id="minute_input", placeholder="Minute", type="number", min=0, max=59),
-                                   #html.P(id = 'time'),
+                                    #  dcc.DatePickerSingle(
+                                    #    id = 'date-picker',
+                                    #    min_date_allowed=date(2023,3,28),
+                                    #    max_date_allowed=date(2023,12,31),
+                                    #    date=date.today()
+                                    #),
+                                    dcc.Input(id="hour_input", placeholder="Hour", value=datetime.now().hour, type="number", min=0,max=23),
+                                    dcc.Input(id="minute_input", placeholder="Minute", value=datetime.now().minute, type="number", min=0, max=59),
+                                    dbc.Button('Set to inputted time', id = 'update_button', n_clicks = 0),
+                                    dbc.Button('Set to local time', id = 'reset_button', n_clicks = 0)
+                                    #dbc.Button('Reset to original', id = 'reset_button', n_clicks = 0)
+                                    #html.P(id = 'time'),
 
-                                   #Button doesn't function for now
-                                   #html.Button('Update time using custom time: ', id = 'update_button', n_clicks = 0)
+                                    #Button doesn't function for now
+                                    #html.Button('Update time using custom time: ', id = 'update_button', n_clicks = 0)
                                    ],
                                     label = "Change time"
                                 ),
