@@ -1,4 +1,3 @@
-import navbar
 import import_schedule
 
 class Building:
