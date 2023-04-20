@@ -5,39 +5,6 @@ from datetime import datetime, date
 import dash_bootstrap_components as dbc
 from dash import dcc
 
-
-# Functions
-
-
-#def get_view():
-    # not sure how to check which view has been selected
-    #return current_view
-
-"""
-def table():
-    table_header = [
-        # Need to make dynamic
-        html.Thead(html.Tr([html.Th("Current View: ")]))
-    ]
-    row1 = html.Tr([html.Td( dcc.Markdown(id = 'time'),
-                             dcc.Interval(
-                                id = 'interval-component',
-                                interval = 1000,
-                                n_intervals = 0
-                             )
-                    # "Current Time: ", id = "time"),
-                    # dcc.Interval(
-                    #     id = 'interval-component',
-                    #     interval = 1000,
-                    #     n_intervals = 0                       
-                    )
-                    ])
-    table_body = [html.Tbody([row1])]
-
-    table = dbc.Table(table_header + table_body, bordered=True)
-    return table
-"""
-
 layout = dbc.Navbar(
             dbc.Container(
                 [
@@ -70,21 +37,10 @@ layout = dbc.Navbar(
                             dbc.Col(
                                 dbc.DropdownMenu(
                                     [
-                                    #  dcc.DatePickerSingle(
-                                    #    id = 'date-picker',
-                                    #    min_date_allowed=date(2023,3,28),
-                                    #    max_date_allowed=date(2023,12,31),
-                                    #    date=date.today()
-                                    #),
                                     dcc.Input(id="hour_input", placeholder="Hour", value=datetime.now().hour, type="number", min=0,max=23),
                                     dcc.Input(id="minute_input", placeholder="Minute", value=datetime.now().minute, type="number", min=0, max=59),
                                     dbc.Button('Set to inputted time', id = 'update_button', n_clicks = 0),
                                     dbc.Button('Set to local time', id = 'reset_button', n_clicks = 0)
-                                    #dbc.Button('Reset to original', id = 'reset_button', n_clicks = 0)
-                                    #html.P(id = 'time'),
-
-                                    #Button doesn't function for now
-                                    #html.Button('Update time using custom time: ', id = 'update_button', n_clicks = 0)
                                    ],
                                     label = "Change time"
                                 ),
