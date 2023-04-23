@@ -29,6 +29,7 @@ app.layout = html.Div([
     )
 ])
 
+# Update the time using a button
 @app.callback(
     Output('time', 'children'),
     Input('update_button', 'n_clicks'),
@@ -75,6 +76,7 @@ def update_time(update_clicks, reset_clicks, hour, minute):
     time = current_time_str
     return current_time_str
 
+# Change the view using a button
 @app.callback(
     Output("view", "children"),
     [
@@ -84,7 +86,6 @@ def update_time(update_clicks, reset_clicks, hour, minute):
         Input("Guest", "n_clicks"),
     ],
 )
-
 def change_view(student,faculty,staff,guest):
     ctx = dash.callback_context
 
@@ -104,6 +105,7 @@ def change_view(student,faculty,staff,guest):
         view = 4
     return view
 
+# Update the map after the view or time is changed
 @app.callback(
     dash.dependencies.Output('map', 'srcDoc'),
     [dash.dependencies.Input('view', 'children'),
