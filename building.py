@@ -29,12 +29,6 @@ class Building:
     def getSchedule(self):
         return self.building_hours
     
-    def numShops(self):
-        return len(self.shops)
-
-    def getShops(self):
-        return self.shops
-    
     def isOpen(self, view, time): # view argument represent the point of view of the viewer, specifically:
                       # 0 = not specified
                       # 1 = Student View
@@ -80,19 +74,6 @@ class Building:
                                 result = True
                                 break
         return result
-
-class Shop:
-    def __init__(self, name, code, shop_type, shop_hours):
-        self.name = name
-        self.code = code
-        self.shop_type = shop_type
-        self.shop_hours = shop_hours
-
-    def getName(self):
-        return self.name
-
-    def getSchedule(self):
-        return self.shop_hours
 
 # List of buildings to be read into the map
 buildings = import_schedule.run_import()
