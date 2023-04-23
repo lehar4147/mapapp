@@ -18,7 +18,6 @@ map.reloadMap(view,time)
 
 app = Dash(__name__,external_stylesheets=[dbc.themes.BOOTSTRAP])
 
-#setted_time = None
 # Layout
 
 app.layout = html.Div([
@@ -29,15 +28,6 @@ app.layout = html.Div([
         map.layout
     )
 ])
-
-# @app.callback(
-#     Output('time', 'children'),
-#     [Input('interval-component', 'n_intervals')]
-# )
-# def update_time(n):
-#     return datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-
-#def map_function(current_time_str)
 
 @app.callback(
     Output('time', 'children'),

@@ -1,4 +1,3 @@
-import navbar
 import import_schedule
 
 class Building:
@@ -72,7 +71,6 @@ class Building:
                 else:
                     result = False
                     #Check if time is within shedule open hours
-                    #print(self.building_hours)
                     for hours in self.building_hours:
                         if hours[0] == day:
                             if int(hours[1].hour) <= hour and hour < int(hours[2].hour):
