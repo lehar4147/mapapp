@@ -78,6 +78,3 @@ def run_import():
                 building_list.append(building.Building(temp_list[0], 0, '', '', float(cordinfo['lon']), float(cordinfo['lat']), 0, '', building_hours, buildaccess))
 
     return building_list
-
-# For Testing Purposes
-#bl = run_import()
