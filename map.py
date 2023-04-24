@@ -65,5 +65,5 @@ def reloadMap(view,time):
     my_map.save('my_map.html')
 
 # Layout
-map.reloadMap(0, datetime.datetime.now().strftime('%A %I:%M %p'))
+reloadMap(0, datetime.datetime.now().strftime('%A %I:%M %p'))
 layout = html.Iframe(id='map', srcDoc=open('my_map.html','r').read(), width='100%', height='600')
