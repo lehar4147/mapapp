@@ -123,6 +123,4 @@ def run_import():
     building_list.append(building.Building("Houston Field House", 0, '', '', -73.66959, 42.73213, 0, '', building_hours, ''))
     building_list.append(building.Building("Admissions", 0, '', '', -73.67547, 42.73067, 0, '', building_hours, ''))
     building_list.append(building.Building("RPI Public Safety", 0, '', '', -73.67714, 42.72926, 0, '', building_hours, ''))
-
-    
     return building_list
