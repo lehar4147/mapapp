@@ -13,13 +13,13 @@ layout = dbc.Navbar(
                             #dbc.Col(html.Img(src=RPI_MAP_APP_LOGO, height=""))
                             #Put in title for now
                             dbc.Col(
-                                html.Div([html.H2("RPI Map App", style = {"color": "white"})]),
+                                html.Div([html.H1("RPI MapApp")]),
                                 width={"size": 3, "order": 1}
                             ),
                             dbc.Col(
                                 html.Div([
-                                    html.H3("Current time: ", style = {"color": "white"}),
-                                    html.P(id = 'time', style = {"color": "white"})
+                                    html.H6("Current Time: "),
+                                    html.P(id = 'time')
                                 ]),
                                 width={"size": 3, "order": 2}
                             ),
@@ -29,7 +29,7 @@ layout = dbc.Navbar(
                                      dbc.DropdownMenuItem("Faculty", id="Faculty"),
                                      dbc.DropdownMenuItem("Staff", id="Staff"),
                                      dbc.DropdownMenuItem("Guest", id="Guest")],
-                                     label="Change View"
+                                     label="Change View", color = "#54585a"
                                 ),
                                 width={"size": 2, "order": 3}
                             ),
@@ -42,20 +42,20 @@ layout = dbc.Navbar(
                                     dbc.Button('Set to inputted time', id = 'update_button', n_clicks = 0),
                                     dbc.Button('Set to local time', id = 'reset_button', n_clicks = 0)
                                    ],
-                                    label = "Change time"
+                                    label = "Change Time", color = "#54585a"
                                 ),
                                 width={"size": 2, "order": 4}
                             ),
-                            dbc.Col(
-                                dbc.Button(
-                                    "Report Building Error", color = "primary"
-                                ),
-                                width={"size": 2, "order": 5}
-                            ),
+                            #dbc.Col(
+                                #dbc.Button(
+                                    #"Report Building Error", color = "primary"
+                               # ),
+                               # width={"size": 2, "order": 5}
+                           # ),
                         ],
                         align = "center"
                     )
                 ]
             ),
-            color = "primary"
+            color = "#d6001c"
         )

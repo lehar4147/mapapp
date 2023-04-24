@@ -10,7 +10,7 @@ RPI_coor = [42.73, -73.6775]
 def reloadMap(view,time):
     # Main map
     my_map = folium.Map(location=RPI_coor, 
-                        min_zoom= 15,
+                        min_zoom= 16,
                         max_zoom= 18,
                         zoom_start=18,
                         min_lat= 42.72558,
