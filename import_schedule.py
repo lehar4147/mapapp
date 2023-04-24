@@ -76,5 +76,4 @@ def run_import():
                                     for i in range(startindex, endindex+1):
                                         building_hours.append((dotw[i], opentime, closetime))
                 building_list.append(building.Building(temp_list[0], 0, '', '', float(cordinfo['lon']), float(cordinfo['lat']), 0, '', building_hours, buildaccess))
-    building_list.append(building.Building("RPI", 0, '', '', -73.6803, 42.7292, 0, '', [], ''))
     return building_list
