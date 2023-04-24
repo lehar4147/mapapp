@@ -75,6 +75,54 @@ def run_import():
                                     endindex = dotw.index(endday)
                                     for i in range(startindex, endindex+1):
                                         building_hours.append((dotw[i], opentime, closetime))
+                # Manually add building's hours that aren't imported
+                if (temp_list[0] == "Mueller Center"):
+                    opentime = datetime.time(9, 0, 0)
+                    closetime = datetime.time(23, 0, 0)
+                    for i in range(0, 7):
+                      building_hours.append((dotw[i], opentime, closetime)) 
+                if (temp_list[0] == "West Hall"):
+                    opentime = datetime.time(8, 0, 0)
+                    closetime = datetime.time(17, 0, 0)
+                    for i in range(0, 7):
+                      building_hours.append((dotw[i], opentime, closetime)) 
+                if (temp_list[0] == "Folsom Library"):
+                    opentime = datetime.time(8, 0, 0)
+                    closetime = datetime.time(22, 0, 0)
+                    for i in range(0, 7):
+                      building_hours.append((dotw[i], opentime, closetime)) 
+                if (temp_list[0] == "Sage Dining Hall"):
+                    opentime = datetime.time(13, 30, 0)
+                    closetime = datetime.time(20, 0, 0)
+                    for i in range(0, 7):
+                      building_hours.append((dotw[i], opentime, closetime))
+                if (temp_list[0] == "Cogswell"):
+                    opentime = datetime.time(12, 0, 0)
+                    closetime = datetime.time(18, 0, 0)
+                    for i in range(0, 7):
+                      building_hours.append((dotw[i], opentime, closetime))
+                if (temp_list[0] == "Commons Dining Hall"):
+                    opentime = datetime.time(9, 0, 0)
+                    closetime = datetime.time(23, 0, 0)
+                    for i in range(0, 7):
+                      building_hours.append((dotw[i], opentime, closetime))                
                 building_list.append(building.Building(temp_list[0], 0, '', '', float(cordinfo['lon']), float(cordinfo['lat']), 0, '', building_hours, buildaccess))
-    building_list.append(building.Building("RPI", 0, '', '', -73.6803, 42.7292, 0, '', [], ''))
+    building_list.append(building.Building("'87 Gymnasium", 0, '', '', -73.67881, 42.7308, 0, '', building_hours, ''))
+    building_list.append(building.Building("Blitman Dining Hall", 0, '', '', -73.68581, 42.73151, 0, '', building_hours, ''))
+    building_list.append(building.Building("EMPAC Theater", 0, '', '', -73.68364, 42.72888, 0, '', building_hours, ''))
+    building_list.append(building.Building("J Erik Jonsson Engineering Center", 0, '', '', -73.68016, 42.72968, 0, '', building_hours, ''))
+    building_list.append(building.Building("Center for Biotechnology and Iterdisciplinary Studies", 0, '', '', -73.67863, 42.72832, 0, '', building_hours, ''))
+    building_list.append(building.Building("Walker Laboratory", 0, '', '', -73.68259, 42.73082, 0, '', building_hours, ''))
+    building_list.append(building.Building("Russel Sage Laboratory", 0, '', '', -73.68164, 42.73086, 0, '', building_hours, ''))
+    building_list.append(building.Building("Hirsch Observatory", 0, '', '', -73.68051, 42.72842, 0, '', building_hours, ''))
+    building_list.append(building.Building("Jonsson-Rowland Science Center (J-ROWL)", 0, '', '', -73.68057, 42.72889, 0, '', building_hours, ''))
+    building_list.append(building.Building("Voorhees Computing Center", 0, '', '', -73.68179, 42.72923, 0, '', building_hours, ''))
+    building_list.append(building.Building("Chapel + Cultural Center", 0, '', '', -73.67226, 42.73177, 0, '', building_hours, ''))
+    building_list.append(building.Building("Carnegie Building", 0, '', '', -73.68322, 42.73043, 0, '', building_hours, ''))
+    building_list.append(building.Building("East Campus Athlietic Village", 0, '', '', -73.66761, 42.73231, 0, '', building_hours, ''))
+    building_list.append(building.Building("Houston Field House", 0, '', '', -73.66959, 42.73213, 0, '', building_hours, ''))
+    building_list.append(building.Building("Admissions", 0, '', '', -73.67547, 42.73067, 0, '', building_hours, ''))
+    building_list.append(building.Building("RPI Public Safety", 0, '', '', -73.67714, 42.72926, 0, '', building_hours, ''))
+
+    
     return building_list
