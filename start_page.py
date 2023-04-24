@@ -35,7 +35,7 @@ app.layout = html.Div([
     Input('update_button', 'n_clicks'),
     Input('reset_button', 'n_clicks'),
     State('hour_input', 'value'),
-    State('minute_input', 'value'),
+    State('minute_input', 'value')
 )
 def update_time(update_clicks, reset_clicks, hour, minute):
     # Check which input triggered the callback
@@ -70,7 +70,6 @@ def update_time(update_clicks, reset_clicks, hour, minute):
                     ampm = 'AM'
                 current_time = datetime.datetime.strptime(f'{current_day} {hour}:00 {ampm}', '%A %I:%M %p')
     # Format the time string and return it as the output
-
     current_time_str = current_time.strftime('%A %I:%M %p')
     global time
     time = current_time_str
