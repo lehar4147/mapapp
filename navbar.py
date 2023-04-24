@@ -13,13 +13,13 @@ layout = dbc.Navbar(
                             #dbc.Col(html.Img(src=RPI_MAP_APP_LOGO, height=""))
                             #Put in title for now
                             dbc.Col(
-                                html.Div([html.H2("RPI Map App")]),
+                                html.Div([html.H2("RPI Map App", style = {"color": "white"})]),
                                 width={"size": 3, "order": 1}
                             ),
                             dbc.Col(
                                 html.Div([
-                                    html.H3("Current time: "),
-                                    html.P(id = 'time')
+                                    html.H3("Current time: ", style = {"color": "white"}),
+                                    html.P(id = 'time', style = {"color": "white"})
                                 ]),
                                 width={"size": 3, "order": 2}
                             ),
