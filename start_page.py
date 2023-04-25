@@ -116,4 +116,4 @@ def update_map(view, time):
 
 # Server
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    app.run_server(debug=False)

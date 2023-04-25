@@ -33,7 +33,10 @@ def run_import():
                 temp_list[0] = temp_list[0].replace('\xa0', '')
             urlstring = temp_list[0].replace(" ", "+")
             testurl = 'https://nominatim.openstreetmap.org/search?q='+urlstring+',+troy,+new+york&format=json&polygon=1&addressdetails=1'
-            urlretrieve(testurl, 'temp.json')
+            try:
+                urlretrieve(testurl, 'temp.json')
+            except:
+                continue
             with open("temp.json", 'r') as f:
                 data = f.read()
             if (data != '[]'):
