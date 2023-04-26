@@ -26,6 +26,7 @@ def reloadMap(view,time):
             <h1>{build.getName()}</h1>
             <p>{build.description}</p>
             """
+        # Find schedule for each building
         for sched in build.getSchedule():
             html += f"""
                 <p>{sched[0]}: {sched[1]} - {sched[2]}</p>
@@ -50,11 +51,11 @@ def reloadMap(view,time):
             icon = "road"
         elif (build.getBuildingType() == "Other"):
             icon = "question-sign"
-        
+        # Set open status color for each building
         if (time != 0):       
             if (build.isOpen(view,time)):
                 color = "green"
-        
+        # Mark every RPI building with appropriate color icon
         marker = folium.Marker(
             location=[build.getLatitude(), build.getLongitude()],
             icon=folium.Icon(color = color, icon = icon),

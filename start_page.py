@@ -12,9 +12,9 @@ import datetime
 view = 0
 time = datetime.datetime.now().strftime('%A %I:%M %p')
 
-map.reloadMap(view,time)
-
 # App Initialization
+
+map.reloadMap(view,time)
 
 app = Dash(__name__,external_stylesheets=[dbc.themes.BOOTSTRAP])
 
@@ -35,7 +35,7 @@ app.layout = html.Div([
     Input('update_button', 'n_clicks'),
     Input('reset_button', 'n_clicks'),
     State('hour_input', 'value'),
-    State('minute_input', 'value'),
+    State('minute_input', 'value')
 )
 def update_time(update_clicks, reset_clicks, hour, minute):
     # Check which input triggered the callback
@@ -70,7 +70,6 @@ def update_time(update_clicks, reset_clicks, hour, minute):
                     ampm = 'AM'
                 current_time = datetime.datetime.strptime(f'{current_day} {hour}:00 {ampm}', '%A %I:%M %p')
     # Format the time string and return it as the output
-
     current_time_str = current_time.strftime('%A %I:%M %p')
     global time
     time = current_time_str
@@ -87,11 +86,12 @@ def update_time(update_clicks, reset_clicks, hour, minute):
     ],
 )
 def change_view(student,faculty,staff,guest):
+    # Check which input triggered the callback
     ctx = dash.callback_context
 
     if (student is None and faculty is None and staff is None and guest is None) or not ctx.triggered:
         return ""
-
+    # Retrieve what viewpoint the user has clicked
     button_id = ctx.triggered[0]["prop_id"].split(".")[0]
 
     global view
@@ -111,6 +111,7 @@ def change_view(student,faculty,staff,guest):
     [dash.dependencies.Input('view', 'children'),
      dash.dependencies.Input('time','children')])
 def update_map(view, time):
+    # Reload map when user has changed view or time
     map.reloadMap(view,time)
     return open('my_map.html', 'r').read()
 
