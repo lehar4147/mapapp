@@ -2,6 +2,7 @@ import import_schedule
 
 # building class
 class Building:
+    # Attributes
     def __init__(self, name, code, building_type, address, longitude, latitude, image, description, building_hours, building_access):
         self.name = name
         self.code = code
@@ -13,7 +14,7 @@ class Building:
         self.description = description
         self.building_hours = building_hours # list of tuples (day, open, close)
         self.building_access = building_access
-
+    # Getters (encapsulation)
     def getName(self):
         return self.name
     

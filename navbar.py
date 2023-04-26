@@ -10,12 +10,12 @@ layout = dbc.Navbar(
                 [
                     dbc.Row(
                         [
-                            #dbc.Col(html.Img(src=RPI_MAP_APP_LOGO, height=""))
-                            #Put in title for now
+                            # Title
                             dbc.Col(
                                 html.Div([html.H1("RPI MapApp", style= {"color": "white"})]),
                                 width={"size": 3, "order": 1}
                             ),
+                            # Display current time or the time set by user
                             dbc.Col(
                                 html.Div([
                                     html.H6("Current Time: ", style = {"color": "white"}),
@@ -23,6 +23,7 @@ layout = dbc.Navbar(
                                 ]),
                                 width={"size": 3, "order": 2}
                             ),
+                            # Drop down menu to change view
                             dbc.Col(
                                 dbc.DropdownMenu(
                                     [dbc.DropdownMenuItem("Student", id="Student"),
@@ -34,6 +35,7 @@ layout = dbc.Navbar(
                                 width={"size": 2, "order": 3}
                             ),
                             html.P(id="view", className="mt-3", style={"display":"none"}),
+                            # Change time functionality
                             dbc.Col(
                                 dbc.DropdownMenu(
                                     [
@@ -47,17 +49,12 @@ layout = dbc.Navbar(
                                 ),
                                 width={"size": 2, "order": 4}
                             ),
-                            #html.P(id="day",className="mt-3",style={"display":"none"})
-                            #dbc.Col(
-                                #dbc.Button(
-                                    #"Report Building Error", color = "primary"
-                               # ),
-                               # width={"size": 2, "order": 5}
-                           # ),
                         ],
+                        # Align every text in each column in the center
                         align = "center"
                     )
                 ]
             ),
+            # Color of navigation bar is set to RPI color
             color = "#d6001c"
         )
