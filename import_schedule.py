@@ -1,3 +1,6 @@
+# Script that takes information from https://publicsafety.rpi.edu/campus-security/card-access-schedule and converts the table
+# into Building objects for the map
+
 from urllib.request import urlretrieve
 from urllib.request import urlopen
 import ssl
@@ -6,40 +9,57 @@ import datetime
 import json
 import building
 
+# Stores Days of the week, building access type, and buildings that cannot be parsed in variables
 dotw = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
 building_type_list = ["Community Access", "Unlocked", "Locked/Closed"]
 # Ignore for building hours
 badformat = ["Cogswell", "Folsom Library", "Mueller Center"]
 
 # Returns a list of Building objects
+# Called from Building class
 def run_import():
+    # Setting up to parse from wesbite
     ssl._create_default_https_context = ssl._create_unverified_context
     url = 'https://publicsafety.rpi.edu/campus-security/card-access-schedule'
+    # Retrieves website as a html file and outputs this file (rawdata.html)
     urlretrieve(url, 'rawdata.html')
+    # Open this html file and convert to a Python object
     soup = BeautifulSoup(open("rawdata.html", encoding="utf8").read(), 'html.parser')
 
+    # To be populated with Building objects
     building_list = []
 
+    # Traverses each table row or building on the website
     for row in soup.find_all('tr'):
+        # Stores building name (index 0), access (index 1), and hours (index 2)
         temp_list = []
+        # Traverses each table data element within a row (building name, access, and hours)
         for element in row.find_all('td'):
             temp_list.append(element.next)
+        # First table row is just for the headers, so we skip this row
         if (len(temp_list) > 0):
             buildaccess = ''
+            # The text for building names had many inconsistencies which are fixed by the following code
             if ('/' in temp_list[0]):
                 t = temp_list[0].split('/')
                 temp_list[0] = t[1]
             if ('\xa0' in temp_list[0]):
                 temp_list[0] = temp_list[0].replace('\xa0', '')
             urlstring = temp_list[0].replace(" ", "+")
+            # Uses the building name, troy, new york to find more information about the building
             testurl = 'https://nominatim.openstreetmap.org/search?q='+urlstring+',+troy,+new+york&format=json&polygon=1&addressdetails=1'
+            # The http request sometimes fails (We could not figure out why.)
             try:
+                # Retrieve information about the building and output this into temp.json
                 urlretrieve(testurl, 'temp.json')
             except:
                 continue
+            # Open the file to start the process of getting the longitude and latitude.
             with open("temp.json", 'r') as f:
                 data = f.read()
             if (data != '[]'):
+                # The format of the information given by the http request is not in the correct format.
+                # We fix this by doing the following
                 if ('},' in data):
                     newdata = data[1:data.index('},')] + '}'
                 else:
@@ -48,19 +68,30 @@ def run_import():
                     f.write(newdata)
                 cordinfo = json.loads(open("temp.json", encoding="utf8").read())
 
+                # Store the building access type in buildaccess
                 for b in building_type_list:
                     if (b in temp_list[1]):
                         buildaccess = b
                 
+                # Store building hours
                 building_hours = []
-                # Parse hours (edge case)
+                # Parse hours
+                # Edge case for open all the time
                 if (temp_list[2] == '24/7'):
+                    # We add hours for each day in the week
                     for day in dotw:
                         building_hours.append((day, datetime.time(0,0), datetime.time(23,59)))
-                # Regular Parsing for hours is not implemented yet
                 elif (temp_list[0] not in badformat):
                     words = temp_list[2].split()
+                    # Check if the hours are actually listed (sometimes the website directs you elsewhere)
                     if (words[0] != 'Please'):
+                        # Split by different time ranges
+                        # Example:
+                        # 11AM - 11PM Monday - Friday; 8AM - 5PM Saturday; 10AM - 11PM Sunday
+                        # The string above is split into three
+                        # This way we can make sure that Monday through Friday get the same hours and Saturday and Sunday
+                        # get different hours.
+                        # All hours are added to building_hours
                         segments = temp_list[2].split(';')
                         for seg in segments:
                             small_segments = seg.split()
