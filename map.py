@@ -7,7 +7,7 @@ import building
 # Main map
 RPI_coor = [42.73, -73.6775]
 
-def reloadMap(view,time):
+def reloadMap(view, time):
     # Main map
     my_map = folium.Map(location=RPI_coor, 
                         min_zoom= 16,
@@ -53,7 +53,7 @@ def reloadMap(view,time):
             icon = "question-sign"
         # Set open status color for each building
         if (time != 0):       
-            if (build.isOpen(view,time)):
+            if (build.isOpen(view, time)):
                 color = "green"
         # Mark every RPI building with appropriate color icon
         marker = folium.Marker(

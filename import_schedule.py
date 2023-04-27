@@ -17,7 +17,7 @@ badformat = ["Cogswell", "Folsom Library", "Mueller Center"]
 
 # Returns a list of Building objects
 # Called from Building class
-def run_import():
+def runImport():
     # Setting up to parse from wesbite
     ssl._create_default_https_context = ssl._create_unverified_context
     url = 'https://publicsafety.rpi.edu/campus-security/card-access-schedule'

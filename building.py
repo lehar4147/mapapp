@@ -81,4 +81,4 @@ class Building:
         return result
 
 # List of buildings to be read into the map
-buildings = import_schedule.run_import()
+buildings = import_schedule.runImport()

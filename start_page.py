@@ -14,9 +14,9 @@ time = datetime.datetime.now().strftime('%A %I:%M %p')
 
 # App Initialization
 
-map.reloadMap(view,time)
+map.reloadMap(view, time)
 
-app = Dash(__name__,external_stylesheets=[dbc.themes.BOOTSTRAP])
+app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 
 # Layout
 
@@ -37,7 +37,7 @@ app.layout = html.Div([
     State('hour_input', 'value'),
     State('minute_input', 'value')
 )
-def update_time(update_clicks, reset_clicks, hour, minute):
+def updateTime(update_clicks, reset_clicks, hour, minute):
     # Check which input triggered the callback
     ctx = dash.callback_context
     if not ctx.triggered:
@@ -85,7 +85,7 @@ def update_time(update_clicks, reset_clicks, hour, minute):
         Input("Guest", "n_clicks"),
     ],
 )
-def change_view(student,faculty,staff,guest):
+def changeView(student, faculty, staff,guest):
     # Check which input triggered the callback
     ctx = dash.callback_context
 
@@ -109,10 +109,10 @@ def change_view(student,faculty,staff,guest):
 @app.callback(
     dash.dependencies.Output('map', 'srcDoc'),
     [dash.dependencies.Input('view', 'children'),
-     dash.dependencies.Input('time','children')])
-def update_map(view, time):
+     dash.dependencies.Input('time', 'children')])
+def updateMap(view, time):
     # Reload map when user has changed view or time
-    map.reloadMap(view,time)
+    map.reloadMap(view, time)
     return open('my_map.html', 'r').read()
 
 # Server
