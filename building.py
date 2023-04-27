@@ -29,6 +29,14 @@ class Building:
         str: The name of the building.
         """
         return self.__name
+    def get_code(self):
+        """
+        Returns the code of the building.
+
+        Returns:
+        str: The code of the building.
+        """
+        return self.__code
     def get_building_type(self):
         """
         Returns the type of the building.
@@ -37,6 +45,14 @@ class Building:
         str: The type of the building.
         """
         return self.__building_type
+    def get_address(self):
+        """
+        Returns the address of the building.
+
+        Returns:
+        str: The address of the building.
+        """
+        return self.__address
     def get_longitude(self):
         """
         Returns the longitude of the building.
@@ -53,6 +69,14 @@ class Building:
         float: The latitude of the building.
         """
         return self.__latitude
+    def get_image(self):
+        """
+        Returns of the image of the building.
+
+        Returns:
+        str: The link of image
+        """
+        return self.__image
     def get_description(self):
         """
         Returns the description of the building.
@@ -128,7 +152,7 @@ class Building:
                     #Check if time is within shedule open hours
                     for hours in self.get_schedule():
                         if hours[0] == day:
-                            if int(hours[1].hour) <= hour and hour < int(hours[2].hour):
+                            if int(hours[1].hour) <= hour < int(hours[2].hour):
                                 result = True
                                 break
                             elif int(hours[2].hour) == hour and int(hours[2].minute) <= minute:
