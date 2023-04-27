@@ -101,7 +101,7 @@ class Building:
         if view is not None:
             if self.building_access == 'Locked/Closed':
                 result = False
-            elif self.building_access == 'Unlocked':
+            elif self.getAccess() == 'Unlocked':
                 result = True
             else:
                 # Depends on view
@@ -110,7 +110,7 @@ class Building:
                 else:
                     result = False
                     #Check if time is within shedule open hours
-                    for hours in self.building_hours:
+                    for hours in self.getSchedule():
                         if hours[0] == day:
                             if int(hours[1].hour) <= hour and hour < int(hours[2].hour):
                                 result = True
