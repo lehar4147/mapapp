@@ -1,9 +1,8 @@
-from dash import Dash
+'''This module defines the navigation bar component'''
+from datetime import datetime
 from dash import dcc
 from dash import html
-from datetime import datetime, date
 import dash_bootstrap_components as dbc
-from dash import dcc
 
 layout = dbc.Navbar(
             dbc.Container(
@@ -39,11 +38,30 @@ layout = dbc.Navbar(
                             dbc.Col(
                                 dbc.DropdownMenu(
                                     [
-                                    dcc.Input(id="hour_input", placeholder="Hour", value=datetime.now().hour, type="number", min=0,max=23),
-                                    dcc.Input(id="minute_input", placeholder="Minute", value=datetime.now().minute, type="number", min=0, max=59),
-                                    dbc.Button('Set to inputted time', id = 'update_button', n_clicks = 0),
-                                    dbc.Button('Set to local time', 
-                                    id = 'reset_button', n_clicks = 0)
+                                    dcc.Input(
+                                        id="hour_input",
+                                        placeholder="Hour",
+                                        value=datetime.now().hour,
+                                        type="number",
+                                        min=0,
+                                        max=23
+                                    ),
+                                    dcc.Input(
+                                        id="minute_input",
+                                        placeholder="Minute",
+                                        value=datetime.now().minute,
+                                        type="number",
+                                        min=0,
+                                        max=59
+                                    ),
+                                    dbc.Button(
+                                        'Set to inputted time', 
+                                        id = 'update_button', n_clicks = 0
+                                    ),
+                                    dbc.Button(
+                                        'Set to local time', 
+                                        id = 'reset_button', n_clicks = 0
+                                    )
                                    ],
                                     label = "Change Time", color = "#54585a"
                                 ),
