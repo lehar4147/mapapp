@@ -3,32 +3,36 @@ import import_schedule
 # building class
 class Building:
     # Attributes
-    def __init__(self, name, code, building_type, address, longitude, latitude, image, description, building_hours, building_access):
-        self.name = name
-        self.code = code
-        self.building_type = building_type
-        self.address = address
-        self.longitude = longitude
-        self.latitude = latitude
-        self.image = image
-        self.description = description
-        self.building_hours = building_hours # list of tuples (day, open, close)
-        self.building_access = building_access
+    def __init__(self, name, building_type, longitude, latitude, description, building_hours, building_access):
+        self.__name = name
+        self.__building_type = building_type
+        self.__longitude = longitude
+        self.__latitude = latitude
+        self.__description = description
+        self.__building_hours = building_hours # list of tuples (day, open, close)
+        self.__building_access = building_access
+
     # Getters (encapsulation)
     def getName(self):
-        return self.name
+        return self.__name
     
     def getBuildingType(self):
-        return self.building_type
+        return self.__building_type
 
     def getLongitude(self):
-        return self.longitude
+        return self.__longitude
     
     def getLatitude(self):
-        return self.latitude
+        return self.__latitude
+    
+    def getDescription(self):
+        return self.__description
 
     def getSchedule(self):
-        return self.building_hours
+        return self.__building_hours
+    
+    def getAccess(self):
+        return self.__building_access
     
     def isOpen(self, view, time): # view argument represent the point of view of the viewer, specifically:
                       # 0 = not specified
@@ -55,9 +59,9 @@ class Building:
 
         #Check current view
         if (view is not None):
-            if self.building_access == 'Locked/Closed':
+            if self.getAccess() == 'Locked/Closed':
                 result = False
-            elif self.building_access == 'Unlocked':
+            elif self.getAccess() == 'Unlocked':
                 result = True
             else:
                 # Depends on view
@@ -66,7 +70,7 @@ class Building:
                 else:
                     result = False
                     #Check if time is within shedule open hours
-                    for hours in self.building_hours:
+                    for hours in self.getSchedule():
                         if hours[0] == day:
                             if int(hours[1].hour) <= hour and hour < int(hours[2].hour):
                                 result = True
