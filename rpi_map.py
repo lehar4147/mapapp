@@ -34,7 +34,7 @@ def reload_map(view,time):
     for build in building.buildings:
         html_template = f"""
             <h1>{build.get_name()}</h1>
-            <p>{build.description}</p>
+            <p>{build.get_description}</p>
             """
         # Find schedule for each building
         for sched in build.get_schedule():
