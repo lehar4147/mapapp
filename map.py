@@ -24,7 +24,7 @@ def reloadMap(view,time):
     for build in building.buildings:
         html = f"""
             <h1>{build.getName()}</h1>
-            <p>{build.description}</p>
+            <p>{build.getDescription()}</p>
             """
         # Find schedule for each building
         for sched in build.getSchedule():
