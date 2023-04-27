@@ -151,7 +151,7 @@ def run_import():
                     opentime = datetime.time(9, 0, 0)
                     closetime = datetime.time(23, 0, 0)
                     for i in range(0, 7):
-                        building_hours.append((dotw[i], opentime, closetime))           
+                        building_hours.append((dotw[i], opentime, closetime))       
                 building_list.append(building.Building(temp_list[0], 0, '', '', float(cordinfo['lon']), float(cordinfo['lat']), 0, '', building_hours, buildaccess))
     building_list.append(building.Building("'87 Gymnasium", 0, '', '', -73.67881, 42.7308, 0, '', building_hours, ''))
     building_list.append(building.Building("Blitman Dining Hall", 0, '', '', -73.68581, 42.73151, 0, '', building_hours, ''))
