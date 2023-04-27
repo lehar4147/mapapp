@@ -1,9 +1,15 @@
+'''This module defines the building class'''
 import import_schedule
 
 # building class
 class Building:
+    """
+    Represents a building affiliated with RPI.
+    """
     # Attributes
-    def __init__(self, name, code, building_type, address, longitude, latitude, image, description, building_hours, building_access):
+    def __init__(self, name, code, building_type, address,
+                 longitude, latitude, image,
+                 description, building_hours, building_access):
         self.name = name
         self.code = code
         self.building_type = building_type
@@ -15,35 +21,74 @@ class Building:
         self.building_hours = building_hours # list of tuples (day, open, close)
         self.building_access = building_access
     # Getters (encapsulation)
-    def getName(self):
+    def get_name(self):
+        """
+        Returns the name of the building.
+
+        Returns:
+        str: The name of the building.
+        """
         return self.name
-    
-    def getBuildingType(self):
+    def get_building_type(self):
+        """
+        Returns the type of the building.
+
+        Returns:
+        str: The type of the building.
+        """
         return self.building_type
+    def get_longitude(self):
+        """
+        Returns the longitude of the building.
 
-    def getLongitude(self):
+        Returns:
+        float: The longitude of the building.
+        """
         return self.longitude
-    
-    def getLatitude(self):
-        return self.latitude
+    def get_latitude(self):
+        """
+        Returns the latitude of the building.
 
-    def getSchedule(self):
+        Returns:
+        float: The latitude of the building.
+        """
+        return self.latitude
+    def get_schedule(self):
+        """
+        Returns the schedule of the building.
+
+        Returns:
+        dict: The schedule of the building.
+        """
         return self.building_hours
-    
-    def isOpen(self, view, time): # view argument represent the point of view of the viewer, specifically:
-                      # 0 = not specified
-                      # 1 = Student View
-                      # 2 = Faculty View
-                      # 3 = Staff View
-                      # 4 = Guest View
-        
+    def is_open(self, view, time):
+        # view argument represent the point of view of the viewer
+        """
+        Checks if the building is open at the given time from the given view.
+
+        Args:
+            view (int): The point of view of the viewer, where:
+                0 = not specified
+                1 = Student View
+                2 = Faculty View
+                3 = Staff View
+                4 = Guest View
+            time (str): The time to check in the format of "Day Hour:Minute AM/PM", where:
+                Day is the three-letter abbreviation for the day of the week (e.g. "Mon")
+                Hour is the hour in 12-hour format (1-12)
+                Minute is the minute (00-59)
+                AM/PM is the meridiem indicator ("AM" or "PM")
+
+        Returns:
+            bool: True if the building is open at the given time and from the given view, 
+                  False otherwise.
+        """
         # Split the input date string into day, time, and AM/PM components
         time_str = time.split(' ')
         day = time_str[0]
         # Split the time string into hour and minute components
         hour_str, minute_str = time_str[1].split(':')
         am_pm = time_str[2]
-        
         # Convert the hour into 24-hour format
         hour = int(hour_str)
         if am_pm == 'PM' and hour != 12:
@@ -52,9 +97,8 @@ class Building:
             hour = 0
         minute = int(minute_str)
         result = False
-
         #Check current view
-        if (view is not None):
+        if view is not None:
             if self.building_access == 'Locked/Closed':
                 result = False
             elif self.building_access == 'Unlocked':
