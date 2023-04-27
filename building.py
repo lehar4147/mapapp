@@ -10,16 +10,16 @@ class Building:
     def __init__(self, name, code, building_type, address,
                  longitude, latitude, image,
                  description, building_hours, building_access):
-        self.name = name
-        self.code = code
-        self.building_type = building_type
-        self.address = address
-        self.longitude = longitude
-        self.latitude = latitude
-        self.image = image
-        self.description = description
-        self.building_hours = building_hours # list of tuples (day, open, close)
-        self.building_access = building_access
+        self.__name = name
+        self.__code = code
+        self.__building_type = building_type
+        self.__address = address
+        self.__longitude = longitude
+        self.__latitude = latitude
+        self.__image = image
+        self.__description = description
+        self.__building_hours = building_hours # list of tuples (day, open, close)
+        self.__building_access = building_access
     # Getters (encapsulation)
     def get_name(self):
         """
@@ -28,7 +28,7 @@ class Building:
         Returns:
         str: The name of the building.
         """
-        return self.name
+        return self.__name
     def get_building_type(self):
         """
         Returns the type of the building.
@@ -36,7 +36,7 @@ class Building:
         Returns:
         str: The type of the building.
         """
-        return self.building_type
+        return self.__building_type
     def get_longitude(self):
         """
         Returns the longitude of the building.
@@ -44,7 +44,7 @@ class Building:
         Returns:
         float: The longitude of the building.
         """
-        return self.longitude
+        return self.__longitude
     def get_latitude(self):
         """
         Returns the latitude of the building.
@@ -52,7 +52,15 @@ class Building:
         Returns:
         float: The latitude of the building.
         """
-        return self.latitude
+        return self.__latitude
+    def get_description(self):
+        """
+        Returns the description of the building.
+
+        Returns:
+        str: The description of the building.
+        """
+        return self.__description
     def get_schedule(self):
         """
         Returns the schedule of the building.
@@ -60,7 +68,15 @@ class Building:
         Returns:
         dict: The schedule of the building.
         """
-        return self.building_hours
+        return self.__building_hours
+    def get_access(self):
+        """
+        Returns the access of the building.
+
+        Returns:
+        str: The access of the building.
+        """
+        return self.__building_access
     def is_open(self, view, time):
         # view argument represent the point of view of the viewer
         """
@@ -99,9 +115,9 @@ class Building:
         result = False
         #Check current view
         if view is not None:
-            if self.building_access == 'Locked/Closed':
+            if self.get_access() == 'Locked/Closed':
                 result = False
-            elif self.getAccess() == 'Unlocked':
+            elif self.get_access() == 'Unlocked':
                 result = True
             else:
                 # Depends on view
@@ -110,7 +126,7 @@ class Building:
                 else:
                     result = False
                     #Check if time is within shedule open hours
-                    for hours in self.getSchedule():
+                    for hours in self.get_schedule():
                         if hours[0] == day:
                             if int(hours[1].hour) <= hour and hour < int(hours[2].hour):
                                 result = True
