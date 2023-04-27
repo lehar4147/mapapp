@@ -2012,9 +2012,6 @@
    'C:\\Program '
    'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.9_3.9.3568.0_x64__qbz5n2kfra8p0\\lib\\lzma.py',
    'PYMODULE'),
-  ('map',
-   'C:\\Users\\mogill\\Documents\\RPI\\2022-2023\\Software\\mapapp\\map.py',
-   'PYMODULE'),
   ('markupsafe',
    'C:\\Users\\mogill\\AppData\\Local\\Packages\\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\\LocalCache\\local-packages\\Python39\\site-packages\\markupsafe\\__init__.py',
    'PYMODULE'),
@@ -39463,6 +39460,9 @@
   ('rlcompleter',
    'C:\\Program '
    'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.9_3.9.3568.0_x64__qbz5n2kfra8p0\\lib\\rlcompleter.py',
+   'PYMODULE'),
+  ('rpi_map',
+   'C:\\Users\\mogill\\Documents\\RPI\\2022-2023\\Software\\mapapp\\rpi_map.py',
    'PYMODULE'),
   ('runpy',
    'C:\\Program '
